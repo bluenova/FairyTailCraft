@@ -2,6 +2,7 @@ name: FairyTailCraft
 main: bluenova.fairytailcraft.FairyTailCraft
 version: 0.1
 commands:
-  ftc:
-   description: Marks you as away-from-keyboard.
+  fairytailcraft:
+   description: Fairy Tail Mage Plugin Commands
    usage: /<command>
+   aliases: [ftc, ft, fairytail]

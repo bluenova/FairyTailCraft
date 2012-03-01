@@ -33,5 +33,4 @@ public class PlayerEvents implements Listener {
             }
         }
     }
-    
 }
