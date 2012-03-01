@@ -1,9 +1,8 @@
 package bluenova.fairytailcraft.plugin;
 
-import org.bukkit.plugin.PluginManager;
-
-public interface MagePlugin {
+public interface MagePlugin {    
     void setPluginManager(MagePluginManager manager);
+    String getMagicName();
     void loadPlugin();
     void unloadPlugin();
 }

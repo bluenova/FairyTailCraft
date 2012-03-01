@@ -2,6 +2,7 @@ package bluenova.fairytailcraft;
 
 import bluenova.fairytailcraft.config.MainConfig;
 import bluenova.fairytailcraft.config.PlayerConfig;
+import bluenova.fairytailcraft.event.MageEvent;
 import bluenova.fairytailcraft.event.PlayerEvents;
 import bluenova.fairytailcraft.plugin.MagePlugin;
 import bluenova.fairytailcraft.plugin.MagePluginManager;
@@ -21,7 +22,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.nijikokun.bukkit.Permissions.Permissions;
 import java.io.File;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +35,12 @@ public class FairyTailCraft extends JavaPlugin {
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
     private MainConfig configuration;
     private List<MagePlugin> plugins;
+    public static List<String> MagicNames = new ArrayList<String>();
     public static PermissionHandler Permissions;
     public static List<PlayerConfig> playerConfigs = new ArrayList<PlayerConfig>();
     public static CommandListener command = new CommandListener();
+    public static List<MageEvent> registeredEvents = new ArrayList<MageEvent>();
+    public static HashMap<Player, String> activeMagic = new HashMap<Player, String>();
     
     @Override
     public void onEnable() {
@@ -99,6 +102,9 @@ public class FairyTailCraft extends JavaPlugin {
         MagePluginManager manager = new MagePluginManagerImpl();
         for (MagePlugin p : plugins) {
             p.setPluginManager(manager);
+        }
+        for (MagePlugin p : plugins) {
+            FairyTailCraft.MagicNames.add(p.getMagicName());
         }
         for (MagePlugin p : plugins) {
             p.loadPlugin();

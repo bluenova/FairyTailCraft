@@ -56,4 +56,20 @@ public class PlayerConfig {
             return false;
         }
     }
+
+    public String getMageType() {
+        String type = this.config.getString("magetype");
+        if(type == null)
+            type = "none";
+        return type;
+    }
+
+    public void learnMagic(String string) {
+        this.config.set("magetype", string);
+        try {
+            this.config.save(this.file);
+        } catch (IOException ex) {
+            Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

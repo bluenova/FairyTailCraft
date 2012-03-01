@@ -4,7 +4,9 @@
  */
 package bluenova.fairytailcraft.plugin;
 
-import java.lang.reflect.Method;
+import bluenova.fairytailcraft.FairyTailCraft;
+import bluenova.fairytailcraft.event.MageEvent;
+import bluenova.fairytailcraft.event.MageEventType;
 
 /**
  *
@@ -13,7 +15,14 @@ import java.lang.reflect.Method;
 public class MagePluginManagerImpl implements MagePluginManager {
 
     @Override
-    public void registerMagic(String name, int minLevel, int requiredMana, Method call) {
-        
+    public void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type) {
+        MageEvent me = new MageEvent();
+        me.name = name;
+        me.magicType = magicType;
+        me.minLevel = minLevel;
+        me.requiredMana = requiredMana;
+        me.call = call;
+        me.type = type;
+        FairyTailCraft.registeredEvents.add(me);
     }
 }

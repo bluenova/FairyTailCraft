@@ -1,7 +1,7 @@
 package bluenova.fairytailcraft.plugin;
 
-import java.lang.reflect.Method;
+import bluenova.fairytailcraft.event.MageEventType;
 
 public interface MagePluginManager {
-    void registerMagic(String name, int minLevel, int requiredMana, Method call);
+    void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type);
 }
