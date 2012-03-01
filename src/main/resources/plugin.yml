@@ -1,0 +1,7 @@
+name: FairyTailCraft
+main: svenbrnn.fairytailcraft.FairyTailCraft
+version: 0.1
+commands:
+  ftc:
+   description: Marks you as away-from-keyboard.
+   usage: /<command>
