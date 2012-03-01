@@ -1,5 +1,5 @@
 name: FairyTailCraft
-main: svenbrnn.fairytailcraft.FairyTailCraft
+main: bluenova.fairytailcraft.FairyTailCraft
 version: 0.1
 commands:
   ftc:
