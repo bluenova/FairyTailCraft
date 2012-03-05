@@ -24,6 +24,7 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Server;
 
 /**
  * oreRespawn for Bukkit
@@ -41,14 +42,17 @@ public class FairyTailCraft extends JavaPlugin {
     public static CommandListener command = new CommandListener();
     public static List<MageEvent> registeredEvents = new ArrayList<MageEvent>();
     public static HashMap<Player, String> activeMagic = new HashMap<Player, String>();
+    public static PluginManager pm;
+    public static Server server;
     
     @Override
     public void onEnable() {
-        PluginManager pm = getServer().getPluginManager();
+        FairyTailCraft.pm = getServer().getPluginManager();
+        FairyTailCraft.server = getServer();
         this.setupPermissions();
         this.configuration = new MainConfig();
         
-        pm.registerEvents(new PlayerEvents(), this);        
+        FairyTailCraft.pm.registerEvents(new PlayerEvents(), this);        
         
         this.loadMagePlugins();
         

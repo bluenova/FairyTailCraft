@@ -4,9 +4,14 @@
  */
 package bluenova.fairytailcraft.plugin;
 
+import bluenova.fairytailcraft.CommandListener;
 import bluenova.fairytailcraft.FairyTailCraft;
+import bluenova.fairytailcraft.Util;
+import bluenova.fairytailcraft.config.PlayerConfig;
 import bluenova.fairytailcraft.event.MageEvent;
 import bluenova.fairytailcraft.event.MageEventType;
+import org.bukkit.Server;
+import org.bukkit.entity.Player;
 
 /**
  *
@@ -24,5 +29,15 @@ public class MagePluginManagerImpl implements MagePluginManager {
         me.call = call;
         me.type = type;
         FairyTailCraft.registeredEvents.add(me);
+    }
+
+    @Override
+    public Server getServer() {
+        return FairyTailCraft.server;
+    }
+
+    @Override
+    public PlayerConfig getPlayerConfig(Player player) {
+        return Util.getPlayerConfig(player);
     }
 }

@@ -1,6 +1,7 @@
 package bluenova.fairytailcraft;
 
 import bluenova.fairytailcraft.config.PlayerConfig;
+import bluenova.fairytailcraft.event.MageEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -28,11 +29,11 @@ public class CommandListener {
                 sent.sendMessage(ChatColor.YELLOW + "Fairy Tail Mage Plugin");
                 sent.sendMessage(ChatColor.YELLOW + "/ft - shows this page");
                 sent.sendMessage(ChatColor.YELLOW + "/ft list - lists all MagicTypes");
-                if (getPlayerConfig(sent) != null && getPlayerConfig(sent).getMageType().equals("none")) {
+                if (Util.getPlayerConfig(sent) != null && Util.getPlayerConfig(sent).getMageType().equals("none")) {
                     sent.sendMessage(ChatColor.YELLOW + "/ft learn <magic> - Learns a MagicType");
                 }
 
-                if (getPlayerConfig(sent) != null && !getPlayerConfig(sent).getMageType().equals("none")) {
+                if (Util.getPlayerConfig(sent) != null && !Util.getPlayerConfig(sent).getMageType().equals("none")) {
                     sent.sendMessage(ChatColor.YELLOW + "/ft mymagics - Lists your Magics");
                     sent.sendMessage(ChatColor.YELLOW + "/ft cast <magicname> - Sets or Removes Magic to your Hand");
                 }
@@ -64,15 +65,6 @@ public class CommandListener {
         }
     }
 
-    private PlayerConfig getPlayerConfig(Player player) {
-        for (int i = 0; i < FairyTailCraft.playerConfigs.size(); i++) {
-            if (FairyTailCraft.playerConfigs.get(i).isPlayer(player)) {
-                return FairyTailCraft.playerConfigs.get(i);
-            }
-        }
-        return null;
-    }
-
     private boolean learnMagic(CommandSender sender, String[] args) {
         if (args.length != 2) {
             sender.sendMessage(ChatColor.RED + "Wrong Parameters!");
@@ -83,8 +75,8 @@ public class CommandListener {
             if (hasPermission(sent, "fairytail.learn")) {
                 if (FairyTailCraft.MagicNames.contains(args[1])) {
                     if (hasPermission(sent, "fairytail." + args[1] + ".learn")) {
-                        if (getPlayerConfig(sent).getMageType().equals("none")) {
-                            getPlayerConfig(sent).learnMagic(args[1]);
+                        if (Util.getPlayerConfig(sent).getMageType().equals("none")) {
+                            Util.getPlayerConfig(sent).learnMagic(args[1]);
                             sender.sendMessage(ChatColor.GREEN + "Learned " + args[1] + " successfully!");
                             return true;
                         } else {
@@ -115,19 +107,24 @@ public class CommandListener {
         }
         if (sender instanceof Player) {
             Player sent = (Player) sender;
-            String magic = this.getPlayerConfig(sent).getMageType();
-            if (hasPermission(sent, "fairytail."+magic.toLowerCase()+".cast")) {
-                if(args.length == 1) {
+            String magic = Util.getPlayerConfig(sent).getMageType();
+            if (hasPermission(sent, "fairytail." + magic.toLowerCase() + ".cast")) {
+                if (args.length == 1) {
                     FairyTailCraft.activeMagic.put(sent, null);
                     sender.sendMessage(ChatColor.GREEN + "Removed Magic from your Hand!");
                     return true;
                 } else {
-                    if(eventIsRegistered(args[1])) {
-                        FairyTailCraft.activeMagic.put(sent, args[1]);
-                        sender.sendMessage(ChatColor.GREEN + "Set Magic "+args[1]+" to your Hand!");
+                    MageEvent eventIsRegistered = eventIsRegistered(args[1], magic);
+                    if (eventIsRegistered != null) {
+                        if (eventIsRegistered.minLevel <= Util.getPlayerConfig(sent).getLevel()) {
+                            FairyTailCraft.activeMagic.put(sent, args[1]);
+                            sender.sendMessage(ChatColor.GREEN + "Set Magic " + args[1] + " to your Hand!");
+                        } else {
+                            sender.sendMessage(ChatColor.RED + "You must at least be level " + eventIsRegistered.minLevel + "!");
+                        }
                         return true;
                     } else {
-                        sender.sendMessage(ChatColor.RED + "Magic "+args[1]+" unknown!");
+                        sender.sendMessage(ChatColor.RED + "Magic " + args[1] + " unknown!");
                         return true;
                     }
                 }
@@ -139,12 +136,13 @@ public class CommandListener {
             return true;
         }
     }
-    
-    private boolean eventIsRegistered(String name) {
-        for(int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
-            if(FairyTailCraft.registeredEvents.get(i).name.equals(name))
-                return true;
+
+    private MageEvent eventIsRegistered(String name, String MagicType) {
+        for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
+            if (FairyTailCraft.registeredEvents.get(i).name.equals(name) && FairyTailCraft.registeredEvents.get(i).magicType.equals(MagicType)) {
+                return FairyTailCraft.registeredEvents.get(i);
+            }
         }
-        return false;
+        return null;
     }
 }

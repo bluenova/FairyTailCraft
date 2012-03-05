@@ -2,5 +2,4 @@ package bluenova.fairytailcraft.event;
 
 
 public enum MageEventType {
-    INTERACT, DAMAGE
-}
+    INTERACT, GETHITBYPROJECTILE,DEATH, FISH, VELOCITY, INVENTORY, ITEMHELD, GETDMGBYENTITY}

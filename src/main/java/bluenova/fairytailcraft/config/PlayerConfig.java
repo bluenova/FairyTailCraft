@@ -72,4 +72,9 @@ public class PlayerConfig {
             Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public int getLevel() {
+        Integer level = this.config.getInt("level", 0);
+        return level;
+    }
 }
