@@ -34,7 +34,7 @@ import org.bukkit.Server;
 public class FairyTailCraft extends JavaPlugin {
     
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
-    private MainConfig configuration;
+    public static MainConfig configuration;
     private List<MagePlugin> plugins;
     public static List<String> MagicNames = new ArrayList<String>();
     public static PermissionHandler Permissions;
@@ -50,7 +50,7 @@ public class FairyTailCraft extends JavaPlugin {
         FairyTailCraft.pm = getServer().getPluginManager();
         FairyTailCraft.server = getServer();
         this.setupPermissions();
-        this.configuration = new MainConfig();
+        FairyTailCraft.configuration = new MainConfig();
         
         FairyTailCraft.pm.registerEvents(new PlayerEvents(), this);        
         

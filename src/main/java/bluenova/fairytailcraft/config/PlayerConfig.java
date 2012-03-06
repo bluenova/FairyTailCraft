@@ -1,15 +1,18 @@
 package bluenova.fairytailcraft.config;
 
+import bluenova.fairytailcraft.FairyTailCraft;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class PlayerConfig {
+
     private Player player;
     private String fileString;
     private File file;
@@ -17,10 +20,10 @@ public class PlayerConfig {
 
     public PlayerConfig(Player player) {
         this.player = player;
-        this.fileString = "plugins"+File.separator+"FairyTailCraft"+File.separator+"players"+File.separator+this.player.getName() + ".yml";
+        this.fileString = "plugins" + File.separator + "FairyTailCraft" + File.separator + "players" + File.separator + this.player.getName() + ".yml";
         this.file = new File(this.fileString);
         this.config = new YamlConfiguration();
-        if(!this.file.exists()) {
+        if (!this.file.exists()) {
             this.file.getParentFile().mkdirs();
             this.createConfig();
         } else {
@@ -32,7 +35,7 @@ public class PlayerConfig {
                 Logger.getLogger(MainConfig.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InvalidConfigurationException ex) {
                 Logger.getLogger(MainConfig.class.getName()).log(Level.SEVERE, null, ex);
-            }      
+            }
         }
     }
 
@@ -42,15 +45,16 @@ public class PlayerConfig {
         this.config.set("exp", 0);
         this.config.set("level", 0);
         this.config.set("mana", 0);
+        this.config.set("maxmana", 0);
         try {
             this.config.save(this.file);
         } catch (IOException ex) {
             Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public boolean isPlayer(Player pl) {
-        if(this.player == pl) {
+        if (this.player == pl) {
             return true;
         } else {
             return false;
@@ -59,8 +63,9 @@ public class PlayerConfig {
 
     public String getMageType() {
         String type = this.config.getString("magetype");
-        if(type == null)
+        if (type == null) {
             type = "none";
+        }
         return type;
     }
 
@@ -76,5 +81,65 @@ public class PlayerConfig {
     public int getLevel() {
         Integer level = this.config.getInt("level", 0);
         return level;
+    }
+
+    public void addExp(int amount) {
+        Integer Exp = this.config.getInt("exp", 0);
+        Exp += amount;
+        this.config.set("exp", Exp);
+        try {
+            this.config.save(this.file);
+        } catch (IOException ex) {
+            Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setExp(int exp) {
+        this.config.set("exp", exp);
+        try {
+            this.config.save(this.file);
+        } catch (IOException ex) {
+            Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public int getExp() {
+        Integer Exp = this.config.getInt("exp", 0);
+        return Exp;
+    }
+
+    public void recalculateLevel() {
+        Integer oldLevel = this.config.getInt("level", 0);
+        Integer Exp = this.config.getInt("exp", 0);
+        double neededExp = 100.00 * FairyTailCraft.configuration.getlevelMultibler();
+        Integer newLevel = 1;
+        while (neededExp < Exp && newLevel != FairyTailCraft.configuration.getMaxLevel()) {
+            newLevel++;
+            neededExp = neededExp + (neededExp * 0.08);
+        }
+        if (oldLevel > newLevel) {
+            player.sendMessage(ChatColor.GREEN + "Leveled up to Level " + newLevel + "!");
+        } else {
+            player.sendMessage(ChatColor.RED + "Leveled down to Level " + newLevel + "!");
+        }
+        recalculateMaxMana();
+    }
+
+    public void recalculateMaxMana() {
+        Integer level = this.config.getInt("level", 0);
+        Double maxMana = 100.0 + FairyTailCraft.configuration.getManaPerLevelMultibler();
+        for (int i = 0; i < level; i++) {
+            maxMana = maxMana + (maxMana * 0.1);
+        }
+        if (maxMana > FairyTailCraft.configuration.getMaxMana()) {
+            maxMana = FairyTailCraft.configuration.getMaxMana().doubleValue();
+        }
+        int mMana = maxMana.intValue();
+        this.config.set("maxMana", mMana);
+        try {
+            this.config.save(this.file);
+        } catch (IOException ex) {
+            Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -15,10 +15,10 @@ public class MainConfig {
     private YamlConfiguration config;
 
     public MainConfig() {
-        this.fileString = "plugins"+File.separator+"FairyTailCraft"+File.separator+"config.yml";
+        this.fileString = "plugins" + File.separator + "FairyTailCraft" + File.separator + "config.yml";
         this.file = new File(this.fileString);
         this.config = new YamlConfiguration();
-        if(!this.file.exists()) {
+        if (!this.file.exists()) {
             this.file.getParentFile().mkdirs();
             this.createConfig();
         } else {
@@ -30,7 +30,7 @@ public class MainConfig {
                 Logger.getLogger(MainConfig.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InvalidConfigurationException ex) {
                 Logger.getLogger(MainConfig.class.getName()).log(Level.SEVERE, null, ex);
-            }      
+            }
         }
         System.out.println("[FairyTailCraft] config " + this.fileString + " Load!");
     }
@@ -49,5 +49,29 @@ public class MainConfig {
         } catch (IOException ex) {
             Logger.getLogger(MainConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Double getlevelMultibler() {
+        return this.config.getDouble("config.level.levelMultibler");
+    }
+
+    public Integer getMaxLevel() {
+        return this.config.getInt("config.level.maxlevel");
+    }
+
+    public Integer getStartLevel() {
+        return this.config.getInt("config.level.startLevel");
+    }
+
+    public Double getManaPerLevelMultibler() {
+        return this.config.getDouble("config.mana.manaPerLevelMultibler");
+    }
+
+    public Double getManaNeedMultibler() {
+        return this.config.getDouble("config.mana.manaNeedMultibler");
+    }
+
+    public Integer getMaxMana() {
+        return this.config.getInt("config.mana.maxMana");
     }
 }

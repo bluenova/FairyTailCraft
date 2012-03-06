@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerInventoryEvent;
@@ -32,6 +33,7 @@ public class PlayerEvents implements Listener {
     @EventHandler
     public void playerLogin(PlayerJoinEvent event) {
         PlayerConfig cfg = new PlayerConfig(event.getPlayer());
+        cfg.recalculateLevel();
         FairyTailCraft.playerConfigs.add(cfg);
         FairyTailCraft.activeMagic.put(event.getPlayer(), null);
         System.out.println("[FairyTailCraft] Player " + event.getPlayer().getName() + " logged in!");
@@ -63,12 +65,12 @@ public class PlayerEvents implements Listener {
         }
         //}
     }
-    
+
     @EventHandler
     public void playerDeath(PlayerDeathEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
-        String magic = FairyTailCraft.activeMagic.get((Player)event.getEntity());
-        String mageType = Util.getPlayerConfig((Player)event.getEntity()).getMageType();
+        String magic = FairyTailCraft.activeMagic.get((Player) event.getEntity());
+        String mageType = Util.getPlayerConfig((Player) event.getEntity()).getMageType();
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.DEATH) {
@@ -79,12 +81,12 @@ public class PlayerEvents implements Listener {
         }
         //}
     }
-    
+
     @EventHandler
     public void playerFish(PlayerFishEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
-        String magic = FairyTailCraft.activeMagic.get((Player)event.getPlayer());
-        String mageType = Util.getPlayerConfig((Player)event.getPlayer()).getMageType();
+        String magic = FairyTailCraft.activeMagic.get((Player) event.getPlayer());
+        String mageType = Util.getPlayerConfig((Player) event.getPlayer()).getMageType();
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.FISH) {
@@ -95,12 +97,12 @@ public class PlayerEvents implements Listener {
         }
         //}
     }
-    
+
     @EventHandler
     public void playerVelocity(PlayerVelocityEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
-        String magic = FairyTailCraft.activeMagic.get((Player)event.getPlayer());
-        String mageType = Util.getPlayerConfig((Player)event.getPlayer()).getMageType();
+        String magic = FairyTailCraft.activeMagic.get((Player) event.getPlayer());
+        String mageType = Util.getPlayerConfig((Player) event.getPlayer()).getMageType();
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.VELOCITY) {
@@ -111,12 +113,12 @@ public class PlayerEvents implements Listener {
         }
         //}
     }
-    
+
     @EventHandler
     public void playerInventory(PlayerInventoryEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
-        String magic = FairyTailCraft.activeMagic.get((Player)event.getPlayer());
-        String mageType = Util.getPlayerConfig((Player)event.getPlayer()).getMageType();
+        String magic = FairyTailCraft.activeMagic.get((Player) event.getPlayer());
+        String mageType = Util.getPlayerConfig((Player) event.getPlayer()).getMageType();
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.INVENTORY) {
@@ -127,12 +129,12 @@ public class PlayerEvents implements Listener {
         }
         //}
     }
-    
+
     @EventHandler
     public void playerItemHeld(PlayerItemHeldEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
-        String magic = FairyTailCraft.activeMagic.get((Player)event.getPlayer());
-        String mageType = Util.getPlayerConfig((Player)event.getPlayer()).getMageType();
+        String magic = FairyTailCraft.activeMagic.get((Player) event.getPlayer());
+        String mageType = Util.getPlayerConfig((Player) event.getPlayer()).getMageType();
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.ITEMHELD) {
@@ -152,9 +154,9 @@ public class PlayerEvents implements Listener {
             String mageType = Util.getPlayerConfig((Player) target).getMageType();
             for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
                 if (FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
-                    
-                        FairyTailCraft.registeredEvents.get(i).call.callPlayerHitByProjectilEvent(event);
-                    
+
+                    FairyTailCraft.registeredEvents.get(i).call.callPlayerHitByProjectilEvent(event);
+
                 }
             }
         }
@@ -170,7 +172,7 @@ public class PlayerEvents implements Listener {
             }
         }
     }
-    
+
     @EventHandler
     public void playerGetDmgByEntity(EntityDamageByEntityEvent event) {
         Entity target = event.getEntity();
@@ -179,8 +181,8 @@ public class PlayerEvents implements Listener {
             for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
                 if (FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
 
-                        FairyTailCraft.registeredEvents.get(i).call.callEntityDamageByEntityEvent(event);
-              
+                    FairyTailCraft.registeredEvents.get(i).call.callEntityDamageByEntityEvent(event);
+
                 }
             }
         }
@@ -194,6 +196,25 @@ public class PlayerEvents implements Listener {
                     }
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerGetExp(PlayerExpChangeEvent event) {
+        if (event.getAmount() > 0) {
+            Util.getPlayerConfig(event.getPlayer()).addExp(event.getAmount());
+            Util.getPlayerConfig(event.getPlayer()).recalculateLevel();
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (event.getEntity() instanceof Player) {
+            Integer exp = Util.getPlayerConfig((Player) event.getEntity()).getExp();
+            Float tmp = exp.floatValue() * 0.9f;
+            exp = tmp.intValue();
+            Util.getPlayerConfig((Player) event.getEntity()).setExp(exp);
+            Util.getPlayerConfig((Player) event.getEntity()).recalculateLevel();
         }
     }
 }

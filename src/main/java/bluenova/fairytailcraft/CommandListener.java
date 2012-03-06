@@ -17,6 +17,10 @@ public class CommandListener {
                 return this.learnMagic(sender, args);
             } else if (args[0].equals("cast")) {
                 return this.setCastMagic(sender, args);
+            } else if (args[0].equals("list")) {
+                return returnMagicList(sender);
+            } else if (args[0].equals("mymagics")) {
+                return returnSenderMagics(sender);
             }
         }
         return false;
@@ -144,5 +148,52 @@ public class CommandListener {
             }
         }
         return null;
+    }
+
+    private boolean returnMagicList(CommandSender sender) {
+        if (sender instanceof Player) {
+            Player sent = (Player) sender;
+            if (hasPermission(sent, "fairytail.list")) {
+                sent.sendMessage(ChatColor.GREEN + "Magics on Server:");
+                for (String mag : FairyTailCraft.MagicNames) {
+                    sent.sendMessage(ChatColor.YELLOW + "- " + mag);
+                }
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            sender.sendMessage("Don't run this Command from Console!");
+            return true;
+        }
+    }
+
+    private boolean returnSenderMagics(CommandSender sender) {
+        if (sender instanceof Player) {
+            Player sent = (Player) sender;
+            String magic = Util.getPlayerConfig(sent).getMageType();
+            if (!magic.equals("none")) {
+                if (hasPermission(sent, "fairytail." + magic + ".list")) {
+                    sent.sendMessage(ChatColor.GREEN + "Your Magics:");
+                    for (MageEvent ev : FairyTailCraft.registeredEvents) {
+                        if(!ev.hidden) {
+                            if(ev.minLevel > Util.getPlayerConfig(sent).getLevel())
+                                sent.sendMessage(ChatColor.YELLOW + "- " + ev.name + " (Level " + ev.minLevel + ")");
+                            else 
+                                sent.sendMessage(ChatColor.GRAY + "- " + ev.name + " (Level " + ev.minLevel + ")");
+                        }
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                sender.sendMessage(ChatColor.RED + "You did not Learn any Magic!");
+                return false;
+            }
+        } else {
+            sender.sendMessage("Don't run this Command from Console!");
+            return true;
+        }
     }
 }

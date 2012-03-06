@@ -4,7 +4,6 @@
  */
 package bluenova.fairytailcraft.plugin;
 
-import bluenova.fairytailcraft.CommandListener;
 import bluenova.fairytailcraft.FairyTailCraft;
 import bluenova.fairytailcraft.Util;
 import bluenova.fairytailcraft.config.PlayerConfig;
@@ -20,7 +19,7 @@ import org.bukkit.entity.Player;
 public class MagePluginManagerImpl implements MagePluginManager {
 
     @Override
-    public void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type) {
+    public void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type, boolean hidden) {
         MageEvent me = new MageEvent();
         me.name = name;
         me.magicType = magicType;
@@ -28,6 +27,7 @@ public class MagePluginManagerImpl implements MagePluginManager {
         me.requiredMana = requiredMana;
         me.call = call;
         me.type = type;
+        me.hidden = hidden;
         FairyTailCraft.registeredEvents.add(me);
     }
 

@@ -6,7 +6,7 @@ import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
 public interface MagePluginManager {
-    void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type);
+    void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type, boolean hidden);
     Server getServer();
     PlayerConfig getPlayerConfig(Player player);
 }

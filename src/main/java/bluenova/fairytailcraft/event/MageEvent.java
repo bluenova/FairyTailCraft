@@ -10,4 +10,5 @@ public class MageEvent {
     public int requiredMana;
     public MagePluginEvent call;
     public MageEventType type;
+    public boolean hidden;
 }
