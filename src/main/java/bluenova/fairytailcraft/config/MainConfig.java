@@ -44,6 +44,7 @@ public class MainConfig {
         this.config.set("config.mana.maxMana", -1);
         this.config.set("config.mana.manaNeedMultibler", 1.0);
         this.config.set("config.mana.manaPerLevelMultibler", 1.0);
+        this.config.set("config.mana.manaRegenMultibler", 1.0);
         try {
             this.config.save(this.file);
         } catch (IOException ex) {
@@ -73,5 +74,9 @@ public class MainConfig {
 
     public Integer getMaxMana() {
         return this.config.getInt("config.mana.maxMana");
+    }
+    
+    public Integer getManaRegenMultibler() {
+        return this.config.getInt("config.mana.manaRegenMultibler");
     }
 }

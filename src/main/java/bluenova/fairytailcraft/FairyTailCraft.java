@@ -1,5 +1,6 @@
 package bluenova.fairytailcraft;
 
+import bluenova.fairytailcraft.Util.ManaRegenThread;
 import bluenova.fairytailcraft.config.MainConfig;
 import bluenova.fairytailcraft.config.PlayerConfig;
 import bluenova.fairytailcraft.event.MageEvent;
@@ -34,6 +35,7 @@ import org.bukkit.Server;
 public class FairyTailCraft extends JavaPlugin {
     
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
+    public static HashMap<Player, ManaRegenThread> manaReg = new HashMap<Player, ManaRegenThread>();
     public static MainConfig configuration;
     private List<MagePlugin> plugins;
     public static List<String> MagicNames = new ArrayList<String>();

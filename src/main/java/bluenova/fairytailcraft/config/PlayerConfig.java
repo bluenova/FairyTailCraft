@@ -46,6 +46,10 @@ public class PlayerConfig {
         this.config.set("level", 0);
         this.config.set("mana", 0);
         this.config.set("maxmana", 0);
+        saveConfig();
+    }
+
+    private void saveConfig() {
         try {
             this.config.save(this.file);
         } catch (IOException ex) {
@@ -71,11 +75,7 @@ public class PlayerConfig {
 
     public void learnMagic(String string) {
         this.config.set("magetype", string);
-        try {
-            this.config.save(this.file);
-        } catch (IOException ex) {
-            Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        saveConfig();
     }
 
     public int getLevel() {
@@ -96,11 +96,7 @@ public class PlayerConfig {
 
     public void setExp(int exp) {
         this.config.set("exp", exp);
-        try {
-            this.config.save(this.file);
-        } catch (IOException ex) {
-            Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        saveConfig();
     }
 
     public int getExp() {
@@ -136,10 +132,45 @@ public class PlayerConfig {
         }
         int mMana = maxMana.intValue();
         this.config.set("maxMana", mMana);
-        try {
-            this.config.save(this.file);
-        } catch (IOException ex) {
-            Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
+        saveConfig();
+    }
+
+    public Integer getMana() {
+        Integer mana = this.config.getInt("mana", 0);
+        return mana;
+    }
+
+    public void setMana(Integer value) {
+        Integer maxmana = this.config.getInt("maxmana", 0);
+        if (value > maxmana) {
+            value = maxmana;
         }
+
+        this.config.set("mana", value);
+        this.saveConfig();
+    }
+    
+    public void addMana(Integer value) {
+        Integer maxmana = this.config.getInt("maxmana", 0);
+        Integer mana = this.config.getInt("mana", 0);
+        mana += value;
+        if (mana > maxmana) {
+            mana = maxmana;
+        }
+
+        this.config.set("mana", mana);
+        this.saveConfig();
+    }
+    
+    public boolean delMana(Integer value) {
+        Integer mana = this.config.getInt("mana", 0);
+        mana -= value;
+        if (mana < 0) {
+            return false;
+        }
+
+        this.config.set("mana", mana);
+        this.saveConfig();
+        return true;
     }
 }

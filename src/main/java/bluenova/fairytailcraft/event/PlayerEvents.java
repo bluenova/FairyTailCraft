@@ -5,7 +5,8 @@
 package bluenova.fairytailcraft.event;
 
 import bluenova.fairytailcraft.FairyTailCraft;
-import bluenova.fairytailcraft.Util;
+import bluenova.fairytailcraft.Util.ManaRegenThread;
+import bluenova.fairytailcraft.Util.Util;
 import bluenova.fairytailcraft.config.PlayerConfig;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -36,6 +37,8 @@ public class PlayerEvents implements Listener {
         cfg.recalculateLevel();
         FairyTailCraft.playerConfigs.add(cfg);
         FairyTailCraft.activeMagic.put(event.getPlayer(), null);
+        ManaRegenThread mana = new ManaRegenThread(event.getPlayer());
+        FairyTailCraft.manaReg.put(event.getPlayer(), mana);        
         System.out.println("[FairyTailCraft] Player " + event.getPlayer().getName() + " logged in!");
     }
 
@@ -44,6 +47,8 @@ public class PlayerEvents implements Listener {
         for (int i = 0; i < FairyTailCraft.playerConfigs.size(); i++) {
             if (FairyTailCraft.playerConfigs.get(i).isPlayer(event.getPlayer())) {
                 FairyTailCraft.playerConfigs.remove(i);
+                FairyTailCraft.activeMagic.remove(event.getPlayer());
+                FairyTailCraft.manaReg.get(event.getPlayer()).stop();;
                 FairyTailCraft.activeMagic.remove(event.getPlayer());
                 System.out.println("[FairyTailCraft] Player " + event.getPlayer().getName() + " logged out!");
             }

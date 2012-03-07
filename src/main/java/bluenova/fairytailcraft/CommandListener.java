@@ -1,5 +1,6 @@
 package bluenova.fairytailcraft;
 
+import bluenova.fairytailcraft.Util.Util;
 import bluenova.fairytailcraft.config.PlayerConfig;
 import bluenova.fairytailcraft.event.MageEvent;
 import org.bukkit.ChatColor;

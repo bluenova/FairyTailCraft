@@ -1,5 +1,6 @@
-package bluenova.fairytailcraft;
+package bluenova.fairytailcraft.Util;
 
+import bluenova.fairytailcraft.FairyTailCraft;
 import bluenova.fairytailcraft.config.PlayerConfig;
 import org.bukkit.entity.Player;
 
