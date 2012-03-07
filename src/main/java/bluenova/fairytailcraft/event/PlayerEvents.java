@@ -49,7 +49,7 @@ public class PlayerEvents implements Listener {
             if (FairyTailCraft.playerConfigs.get(i).isPlayer(event.getPlayer())) {
                 FairyTailCraft.playerConfigs.remove(i);
                 FairyTailCraft.activeMagic.remove(event.getPlayer());
-                FairyTailCraft.manaReg.get(event.getPlayer()).stop();;
+                FairyTailCraft.manaReg.get(event.getPlayer()).stopThread();
                 FairyTailCraft.activeMagic.remove(event.getPlayer());
                 System.out.println("[FairyTailCraft] Player " + event.getPlayer().getName() + " logged out!");
             }
