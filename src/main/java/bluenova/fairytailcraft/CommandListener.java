@@ -16,6 +16,8 @@ public class CommandListener {
                 return this.returnInfo(sender);
             } else if (args[0].equals("learn")) {
                 return this.learnMagic(sender, args);
+            } else if (args[0].equals("info")) {
+                return this.returnMyInfo(sender, args);
             } else if (args[0].equals("cast")) {
                 return this.setCastMagic(sender, args);
             } else if (args[0].equals("list")) {
@@ -177,11 +179,12 @@ public class CommandListener {
                 if (hasPermission(sent, "fairytail." + magic + ".list")) {
                     sent.sendMessage(ChatColor.GREEN + "Your Magics:");
                     for (MageEvent ev : FairyTailCraft.registeredEvents) {
-                        if(!ev.hidden) {
-                            if(ev.minLevel > Util.getPlayerConfig(sent).getLevel())
+                        if (!ev.hidden) {
+                            if (ev.minLevel > Util.getPlayerConfig(sent).getLevel()) {
                                 sent.sendMessage(ChatColor.YELLOW + "- " + ev.name + " (Level " + ev.minLevel + ")");
-                            else 
+                            } else {
                                 sent.sendMessage(ChatColor.GRAY + "- " + ev.name + " (Level " + ev.minLevel + ")");
+                            }
                         }
                     }
                     return true;
@@ -191,6 +194,58 @@ public class CommandListener {
             } else {
                 sender.sendMessage(ChatColor.RED + "You did not Learn any Magic!");
                 return false;
+            }
+        } else {
+            sender.sendMessage("Don't run this Command from Console!");
+            return true;
+        }
+    }
+
+    private boolean returnMyInfo(CommandSender sender, String[] args) {
+        if (sender instanceof Player) {
+            Player sent = (Player) sender;
+            if (args.length > 1) {
+                if (hasPermission(sent, "fairytail.info.other")) {
+                    Player player = FairyTailCraft.server.getPlayer(args[1]);
+                    if (player != null) {
+                        PlayerConfig playerConfig = Util.getPlayerConfig(player);
+                        sent.sendMessage(ChatColor.GREEN + "Info ueber " + player.getName() + ":");
+                        sent.sendMessage(ChatColor.YELLOW + "Magietyp: " + playerConfig.getMageType());
+                        if (!playerConfig.getMageType().equals("none")) {
+                            sent.sendMessage(ChatColor.YELLOW + "Level: " + playerConfig.getLevel());
+                            sent.sendMessage(ChatColor.YELLOW + "EXP: " + playerConfig.getExp());
+                            sent.sendMessage(ChatColor.YELLOW + "Mana: " + playerConfig.getMana() + "/" + playerConfig.getMaxMana());
+                            sent.sendMessage(ChatColor.YELLOW + "Activespell: " + FairyTailCraft.activeMagic.get(player));
+                        }
+
+                    } else {
+                        sent.sendMessage(ChatColor.RED + "Spieler " + args[1] + " nicht gefunden!");
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                if (hasPermission(sent, "fairytail.info.my")) {
+                    Player player = sent;
+                    if (player != null) {
+                        PlayerConfig playerConfig = Util.getPlayerConfig(player);
+                        sent.sendMessage(ChatColor.GREEN + "Info ueber " + player.getName() + ":");
+                        sent.sendMessage(ChatColor.YELLOW + "Magietyp: " + playerConfig.getMageType());
+                        if (!playerConfig.getMageType().equals("none")) {
+                            sent.sendMessage(ChatColor.YELLOW + "Level: " + playerConfig.getLevel());
+                            sent.sendMessage(ChatColor.YELLOW + "EXP: " + playerConfig.getExp());
+                            sent.sendMessage(ChatColor.YELLOW + "Mana: " + playerConfig.getMana() + "/" + playerConfig.getMaxMana());
+                            sent.sendMessage(ChatColor.YELLOW + "Activespell: " + FairyTailCraft.activeMagic.get(player));
+                        }
+
+                    } else {
+                        sent.sendMessage(ChatColor.RED + "Spieler " + args[1] + " nicht gefunden!");
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
             }
         } else {
             sender.sendMessage("Don't run this Command from Console!");

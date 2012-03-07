@@ -182,4 +182,9 @@ public class PlayerConfig {
         }
         return delMana(mana.intValue());
     }
+
+    public Integer getMaxMana() {
+        Integer maxmana = this.config.getInt("maxmana", 0);
+        return maxmana;
+    }
 }
