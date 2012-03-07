@@ -187,7 +187,7 @@ public class PlayerEvents implements Listener {
             for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
                 if (FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                     if (Util.getPlayerConfig((Player) target).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                        FairyTailCraft.registeredEvents.get(i).call.callPlayerHitByProjectilEvent(event);
+                        FairyTailCraft.registeredEvents.get(i).call.callEntityHitByProjectilEvent(event);
                     }
 
                 }
@@ -199,7 +199,7 @@ public class PlayerEvents implements Listener {
             for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
                 if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                     if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.GETHITBYPROJECTILE) {
-                        FairyTailCraft.registeredEvents.get(i).call.callPlayerHitByProjectilEvent(event);
+                        FairyTailCraft.registeredEvents.get(i).call.callEntityHitByProjectilEvent(event);
                     }
                 }
             }

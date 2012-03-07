@@ -29,6 +29,7 @@ public enum MageEventType {
     /**
      * On Player Inventory Event
      */
+    @Deprecated
     INVENTORY,
     /**
      * On Player Itemheld Event

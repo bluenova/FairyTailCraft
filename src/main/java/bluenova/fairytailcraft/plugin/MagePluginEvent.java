@@ -18,19 +18,19 @@ import org.bukkit.event.player.PlayerVelocityEvent;
  * @author Sven
  */
 public abstract class MagePluginEvent {
+
     /**
      * Called when EventType is INTERACT
      * @param event
      */
     public void callPlayerInteractEvent(PlayerInteractEvent event) {
-        
     }
+
     /**
      * Called when EventType is GETHITBYENTITY or when Other Events by Shooter cause a ProjectileHitEvent
      * @param event
      */
-    public void callPlayerHitByProjectilEvent(ProjectileHitEvent event) {
-        
+    public void callEntityHitByProjectilEvent(ProjectileHitEvent event) {
     }
 
     /**
@@ -38,7 +38,6 @@ public abstract class MagePluginEvent {
      * @param event
      */
     public void callPlayerDeathEvent(PlayerDeathEvent event) {
-        
     }
 
     /**
@@ -46,7 +45,6 @@ public abstract class MagePluginEvent {
      * @param event
      */
     public void callPlayerFishEvent(PlayerFishEvent event) {
-        
     }
 
     /**
@@ -54,15 +52,14 @@ public abstract class MagePluginEvent {
      * @param event
      */
     public void callPlayerViolencityEvent(PlayerVelocityEvent event) {
-        
     }
 
     /**
      * Called when EventType is INVENTORY
      * @param event
      */
+    @Deprecated
     public void callPlayerInventoryEvent(PlayerInventoryEvent event) {
-        
     }
 
     /**
@@ -70,7 +67,6 @@ public abstract class MagePluginEvent {
      * @param event
      */
     public void callPlayerItemHeldEvent(PlayerItemHeldEvent event) {
-        
     }
 
     /**
@@ -78,6 +74,5 @@ public abstract class MagePluginEvent {
      * @param event
      */
     public void callEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
-        
     }
 }
