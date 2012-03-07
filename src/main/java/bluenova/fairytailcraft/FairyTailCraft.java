@@ -35,16 +35,46 @@ import org.bukkit.Server;
 public class FairyTailCraft extends JavaPlugin {
     
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
+    /**
+     * Hashmap with ManaRegenthreads
+     */
     public static HashMap<Player, ManaRegenThread> manaReg = new HashMap<Player, ManaRegenThread>();
+    /**
+     * Main Config of Project
+     */
     public static MainConfig configuration;
     private List<MagePlugin> plugins;
+    /**
+     * List of Registered Magic Names
+     */
     public static List<String> MagicNames = new ArrayList<String>();
+    /**
+     * Permission Handler for Permission Plugins
+     */
     public static PermissionHandler Permissions;
+    /**
+     * Hashmap with Configs for Online Players
+     */
     public static List<PlayerConfig> playerConfigs = new ArrayList<PlayerConfig>();
+    /**
+     * Listener Object For commands
+     */
     public static CommandListener command = new CommandListener();
+    /**
+     * List of Registered MageEvents
+     */
     public static List<MageEvent> registeredEvents = new ArrayList<MageEvent>();
+    /**
+     * Hashmap with Active Magics of the Online Players
+     */
     public static HashMap<Player, String> activeMagic = new HashMap<Player, String>();
+    /**
+     * The Plugin Manager of the Bukkit Server
+     */
     public static PluginManager pm;
+    /**
+     * The Bukkit Server
+     */
     public static Server server;
     
     @Override
@@ -74,6 +104,9 @@ public class FairyTailCraft extends JavaPlugin {
         }
     }
     
+    /**
+     * 
+     */
     @Override
     public void onDisable() {
         this.unloadMagePlugins();
@@ -81,6 +114,14 @@ public class FairyTailCraft extends JavaPlugin {
         System.out.println(pdfFile.getName() + " disabled!");
     }
     
+    /**
+     * Called on Command
+     * @param sender
+     * @param command
+     * @param label
+     * @param args
+     * @return
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         return FairyTailCraft.command.command(sender, command, label, args);

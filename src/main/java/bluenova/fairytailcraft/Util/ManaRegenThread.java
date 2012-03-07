@@ -5,12 +5,10 @@
 package bluenova.fairytailcraft.Util;
 
 import bluenova.fairytailcraft.FairyTailCraft;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bukkit.entity.Player;
 
 /**
- *
+ * Thread for Regenering Mana
  * @author Sven
  */
 public class ManaRegenThread extends Thread {
@@ -18,10 +16,17 @@ public class ManaRegenThread extends Thread {
     private Player player;
     private boolean run = true;
 
+    /**
+     * 
+     * @param player Player that the Thread is for
+     */
     public ManaRegenThread(Player player) {
         this.player = player;
     }
     
+    /**
+     * Stop the Thread
+     */
     public void stopThread() {
         run = false;
     }

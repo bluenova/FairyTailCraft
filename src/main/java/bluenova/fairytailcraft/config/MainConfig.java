@@ -8,12 +8,19 @@ import java.util.logging.Logger;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+/**
+ * Config of the Plugin
+ * @author Sven
+ */
 public class MainConfig {
 
     private String fileString;
     private File file;
     private YamlConfiguration config;
 
+    /**
+     * Constructor
+     */
     public MainConfig() {
         this.fileString = "plugins" + File.separator + "FairyTailCraft" + File.separator + "config.yml";
         this.file = new File(this.fileString);
@@ -52,30 +59,58 @@ public class MainConfig {
         }
     }
 
+    /**
+     * 
+     * @return Level EXP need Multibler from Config
+     */
     public Double getlevelMultibler() {
         return this.config.getDouble("config.level.levelMultibler");
     }
 
+    /**
+     * 
+     * @return Maximal Level from Config
+     */
     public Integer getMaxLevel() {
         return this.config.getInt("config.level.maxlevel");
     }
 
+    /**
+     * 
+     * @return start Level from config
+     */
     public Integer getStartLevel() {
         return this.config.getInt("config.level.startLevel");
     }
 
+    /**
+     * 
+     * @return Mana Value Multibler from config
+     */
     public Double getManaPerLevelMultibler() {
         return this.config.getDouble("config.mana.manaPerLevelMultibler");
     }
 
+    /**
+     * 
+     * @return Mana need Multibler from config
+     */
     public Double getManaNeedMultibler() {
         return this.config.getDouble("config.mana.manaNeedMultibler");
     }
 
+    /**
+     * 
+     * @return Maximum Mana from config
+     */
     public Integer getMaxMana() {
         return this.config.getInt("config.mana.maxMana");
     }
     
+    /**
+     * 
+     * @return Mana Regenerations Multibler from config
+     */
     public Integer getManaRegenMultibler() {
         return this.config.getInt("config.mana.manaRegenMultibler");
     }

@@ -18,6 +18,16 @@ import org.bukkit.entity.Player;
  */
 public class MagePluginManagerImpl implements MagePluginManager {
 
+    /**
+     * Registeres a Magic in FairyTailMagic for the MageType
+     * @param name Name of Magic
+     * @param magicType Type Name of Magic
+     * @param minLevel minimum Level for Magic
+     * @param requiredMana required Mana to Use Magic
+     * @param call Object of MagePluginEvent
+     * @param type Type of Magic
+     * @param hidden Magic is Hidden in List (true/false)
+     */
     @Override
     public void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type, boolean hidden) {
         MageEvent me = new MageEvent();
@@ -31,11 +41,20 @@ public class MagePluginManagerImpl implements MagePluginManager {
         FairyTailCraft.registeredEvents.add(me);
     }
 
+    /**
+     * Get Bukkit Server Object
+     * @return
+     */
     @Override
     public Server getServer() {
         return FairyTailCraft.server;
     }
 
+    /**
+     * Get PlayerConfig of a Player
+     * @param player Player that config is wanted From
+     * @return PlayerConfig of Player
+     */
     @Override
     public PlayerConfig getPlayerConfig(Player player) {
         return Util.getPlayerConfig(player);

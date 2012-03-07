@@ -31,6 +31,10 @@ import org.bukkit.event.player.PlayerVelocityEvent;
  */
 public class PlayerEvents implements Listener {
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void playerLogin(PlayerJoinEvent event) {
         PlayerConfig cfg = new PlayerConfig(event.getPlayer());
@@ -43,6 +47,10 @@ public class PlayerEvents implements Listener {
         System.out.println("[FairyTailCraft] Player " + event.getPlayer().getName() + " logged in!");
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void playerLogout(PlayerQuitEvent event) {
         for (int i = 0; i < FairyTailCraft.playerConfigs.size(); i++) {
@@ -56,6 +64,10 @@ public class PlayerEvents implements Listener {
         }
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void playerUseEvent(PlayerInteractEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
@@ -74,6 +86,10 @@ public class PlayerEvents implements Listener {
         //}
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void playerFish(PlayerFishEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
@@ -92,6 +108,10 @@ public class PlayerEvents implements Listener {
         //}
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void playerVelocity(PlayerVelocityEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
@@ -110,6 +130,10 @@ public class PlayerEvents implements Listener {
         //}
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void playerInventory(PlayerInventoryEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
@@ -128,6 +152,10 @@ public class PlayerEvents implements Listener {
         //}
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void playerItemHeld(PlayerItemHeldEvent event) {
         //if (!event.isBlockInHand() && !event.hasItem()) {
@@ -146,6 +174,10 @@ public class PlayerEvents implements Listener {
         //}
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void playerHitByProjectile(ProjectileHitEvent event) {
         Projectile proj = (Projectile) event.getEntity();
@@ -174,6 +206,10 @@ public class PlayerEvents implements Listener {
         }
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void playerGetDmgByEntity(EntityDamageByEntityEvent event) {
         Entity target = event.getEntity();
@@ -200,6 +236,10 @@ public class PlayerEvents implements Listener {
         }
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void onPlayerGetExp(PlayerExpChangeEvent event) {
         if (event.getAmount() > 0) {
@@ -210,6 +250,10 @@ public class PlayerEvents implements Listener {
         }
     }
 
+    /**
+     * 
+     * @param event
+     */
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (event.getEntity() instanceof Player) {

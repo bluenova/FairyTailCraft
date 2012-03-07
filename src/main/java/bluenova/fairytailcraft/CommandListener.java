@@ -8,8 +8,20 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * 
+ * @author Sven
+ */
 public class CommandListener {
 
+    /**
+     * Constructor
+     * @param sender sender of Command
+     * @param command the Command
+     * @param cmd Command as String
+     * @param args Parameters of Command
+     * @return
+     */
     public boolean command(CommandSender sender, Command command, String cmd, String[] args) {
         if (cmd.equals("ftc") || cmd.equals("fairytailcraft") || cmd.equals("ft") || cmd.equals("fairytail")) {
             if (args.length == 0) {

@@ -11,6 +11,10 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+/**
+ * Config of a Player
+ * @author Sven
+ */
 public class PlayerConfig {
 
     private Player player;
@@ -18,6 +22,10 @@ public class PlayerConfig {
     private File file;
     private YamlConfiguration config;
 
+    /**
+     * 
+     * @param player Player thats config is defined
+     */
     public PlayerConfig(Player player) {
         this.player = player;
         this.fileString = "plugins" + File.separator + "FairyTailCraft" + File.separator + "players" + File.separator + this.player.getName() + ".yml";
@@ -57,6 +65,11 @@ public class PlayerConfig {
         }
     }
 
+    /**
+     * Checks if the Player defined in Config is the same like the Inputed
+     * @param pl Player to check
+     * @return Player is Player of Config
+     */
     public boolean isPlayer(Player pl) {
         if (this.player == pl) {
             return true;
@@ -65,6 +78,10 @@ public class PlayerConfig {
         }
     }
 
+    /**
+     * Get Typ of Magic from Config
+     * @return Typ of Magic
+     */
     public String getMageType() {
         String type = this.config.getString("magetype");
         if (type == null) {
@@ -73,16 +90,28 @@ public class PlayerConfig {
         return type;
     }
 
+    /**
+     * Sets a Magic to Config
+     * @param string Name of Magic to Learn
+     */
     public void learnMagic(String string) {
         this.config.set("magetype", string);
         saveConfig();
     }
 
+    /**
+     * Get Magic level of the Player
+     * @return Magic Level
+     */
     public int getLevel() {
         Integer level = this.config.getInt("level", 0);
         return level;
     }
 
+    /**
+     * Add exp to the Player in config
+     * @param amount Amout of EXP to add
+     */
     public void addExp(int amount) {
         Integer Exp = this.config.getInt("exp", 0);
         Exp += amount;
@@ -94,16 +123,27 @@ public class PlayerConfig {
         }
     }
 
+    /**
+     * Sets exp of Player in config
+     * @param exp Value to set EXP to
+     */
     public void setExp(int exp) {
         this.config.set("exp", exp);
         saveConfig();
     }
 
+    /**
+     * Get Players EXP from config
+     * @return Players EXP
+     */
     public int getExp() {
         Integer Exp = this.config.getInt("exp", 0);
         return Exp;
     }
 
+    /**
+     * Recalculate the Level of the Player and Send a Message to him/her if he Levels up/down.
+     */
     public void recalculateLevel() {
         Integer oldLevel = this.config.getInt("level", 0);
         Integer Exp = this.config.getInt("exp", 0);
@@ -121,6 +161,9 @@ public class PlayerConfig {
         recalculateMaxMana();
     }
 
+    /**
+     * Recalculates the Maximal mana of a Player
+     */
     public void recalculateMaxMana() {
         Integer level = this.config.getInt("level", 0);
         Double maxMana = 100.0 + FairyTailCraft.configuration.getManaPerLevelMultibler();
@@ -135,11 +178,19 @@ public class PlayerConfig {
         saveConfig();
     }
 
+    /**
+     * Get the Current Mana of Player from Config
+     * @return current mana of Player
+     */
     public Integer getMana() {
         Integer mana = this.config.getInt("mana", 0);
         return mana;
     }
 
+    /**
+     * Set mana to Config, Sets Maxmana if the Value gets bigger then the MaxMana
+     * @param value Mana to Set
+     */
     public void setMana(Integer value) {
         Integer maxmana = this.config.getInt("maxmana", 0);
         if (value > maxmana) {
@@ -150,6 +201,10 @@ public class PlayerConfig {
         this.saveConfig();
     }
     
+    /**
+     * Add mana to Config, Sets Maxmana if the Value gets bigger then the MaxMana
+     * @param value
+     */
     public void addMana(Integer value) {
         Integer maxmana = this.config.getInt("maxmana", 0);
         Integer mana = this.config.getInt("mana", 0);
@@ -162,6 +217,11 @@ public class PlayerConfig {
         this.saveConfig();
     }
     
+    /**
+     * Removes mana from Player if he/she has enough
+     * @param value mana to remove
+     * @return mana was removed (if Player has not anough mana return false)
+     */
     public boolean delMana(Integer value) {
         Integer mana = this.config.getInt("mana", 0);
         mana -= value;
@@ -174,6 +234,11 @@ public class PlayerConfig {
         return true;
     }
     
+    /**
+     * Deletes the Mana Calculated with the Mananeedmultibler if he/she has enough
+     * @param value Mana to Remove
+     * @return mana was removed (if Player has not anough mana return false)
+     */
     public boolean delCalcMana(Integer value) {
         int level = this.getLevel();
         Double mana = value.doubleValue();
@@ -183,6 +248,10 @@ public class PlayerConfig {
         return delMana(mana.intValue());
     }
 
+    /**
+     * Returns the Maximal Mana of a Player
+     * @return Maximal Mana
+     */
     public Integer getMaxMana() {
         Integer maxmana = this.config.getInt("maxmana", 0);
         return maxmana;
