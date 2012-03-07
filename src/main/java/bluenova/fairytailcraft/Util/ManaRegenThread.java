@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
  *
  * @author Sven
  */
-public class ManaRegenThread implements Runnable {
+public class ManaRegenThread extends Thread {
 
     private Player player;
     private boolean run = true;
@@ -22,7 +22,7 @@ public class ManaRegenThread implements Runnable {
         this.player = player;
     }
     
-    public void stop() {
+    public void stopThread() {
         run = false;
     }
 
@@ -37,7 +37,8 @@ public class ManaRegenThread implements Runnable {
                 }
             } 
             firstRun = false;
-            Util.getPlayerConfig(player).addMana(getManaRegeneration());            
+            if(!Util.getPlayerConfig(player).getMageType().equals("none"))
+                Util.getPlayerConfig(player).addMana(getManaRegeneration());            
         }
     }
     

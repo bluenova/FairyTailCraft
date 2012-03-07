@@ -38,6 +38,7 @@ public class PlayerEvents implements Listener {
         FairyTailCraft.playerConfigs.add(cfg);
         FairyTailCraft.activeMagic.put(event.getPlayer(), null);
         ManaRegenThread mana = new ManaRegenThread(event.getPlayer());
+        mana.start();
         FairyTailCraft.manaReg.put(event.getPlayer(), mana);
         System.out.println("[FairyTailCraft] Player " + event.getPlayer().getName() + " logged in!");
     }
@@ -202,8 +203,10 @@ public class PlayerEvents implements Listener {
     @EventHandler
     public void onPlayerGetExp(PlayerExpChangeEvent event) {
         if (event.getAmount() > 0) {
-            Util.getPlayerConfig(event.getPlayer()).addExp(event.getAmount());
-            Util.getPlayerConfig(event.getPlayer()).recalculateLevel();
+            if (!Util.getPlayerConfig(event.getPlayer()).getMageType().equals("none")) {
+                Util.getPlayerConfig(event.getPlayer()).addExp(event.getAmount());
+                Util.getPlayerConfig(event.getPlayer()).recalculateLevel();
+            }
         }
     }
 
@@ -222,11 +225,13 @@ public class PlayerEvents implements Listener {
                     return;
                 }
             }
-            Integer exp = Util.getPlayerConfig((Player) event.getEntity()).getExp();
-            Float tmp = exp.floatValue() * 0.9f;
-            exp = tmp.intValue();
-            Util.getPlayerConfig((Player) event.getEntity()).setExp(exp);
-            Util.getPlayerConfig((Player) event.getEntity()).recalculateLevel();
+            if (!Util.getPlayerConfig((Player) event.getEntity()).getMageType().equals("none")) {
+                Integer exp = Util.getPlayerConfig((Player) event.getEntity()).getExp();
+                Float tmp = exp.floatValue() * 0.9f;
+                exp = tmp.intValue();
+                Util.getPlayerConfig((Player) event.getEntity()).setExp(exp);
+                Util.getPlayerConfig((Player) event.getEntity()).recalculateLevel();
+            }
         }
     }
 }
