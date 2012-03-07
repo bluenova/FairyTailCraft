@@ -173,4 +173,13 @@ public class PlayerConfig {
         this.saveConfig();
         return true;
     }
+    
+    public boolean delCalcMana(Integer value) {
+        int level = this.getLevel();
+        Double mana = value.doubleValue();
+        for(int i = 0; i < level; i++) {
+            mana = mana + mana * 0.05;
+        }
+        return delMana(mana.intValue());
+    }
 }
