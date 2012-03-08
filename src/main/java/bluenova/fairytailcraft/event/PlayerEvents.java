@@ -77,8 +77,10 @@ public class PlayerEvents implements Listener {
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.INTERACT) {
-                    if (Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                        FairyTailCraft.registeredEvents.get(i).call.callPlayerInteractEvent(event);
+                    if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                        if (FairyTailCraft.registeredEvents.get(i).call.callPlayerInteractEvent(event)) {
+                            Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
+                        }
                     }
                 }
                 return;
@@ -99,8 +101,10 @@ public class PlayerEvents implements Listener {
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.FISH) {
-                    if (Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                        FairyTailCraft.registeredEvents.get(i).call.callPlayerFishEvent(event);
+                    if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                        if (FairyTailCraft.registeredEvents.get(i).call.callPlayerFishEvent(event)) {
+                            Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
+                        }
                     }
                 }
                 return;
@@ -121,8 +125,10 @@ public class PlayerEvents implements Listener {
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.VELOCITY) {
-                    if (Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                        FairyTailCraft.registeredEvents.get(i).call.callPlayerViolencityEvent(event);
+                    if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                        if (FairyTailCraft.registeredEvents.get(i).call.callPlayerViolencityEvent(event)) {
+                            Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
+                        }
                     }
                 }
                 return;
@@ -143,8 +149,10 @@ public class PlayerEvents implements Listener {
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.INVENTORY) {
-                    if (Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                        FairyTailCraft.registeredEvents.get(i).call.callPlayerInventoryEvent(event);
+                    if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                        if (FairyTailCraft.registeredEvents.get(i).call.callPlayerInventoryEvent(event)) {
+                            Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
+                        }
                     }
                 }
                 return;
@@ -165,8 +173,10 @@ public class PlayerEvents implements Listener {
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                 if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.ITEMHELD) {
-                    if (Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                        FairyTailCraft.registeredEvents.get(i).call.callPlayerItemHeldEvent(event);
+                    if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                        if (FairyTailCraft.registeredEvents.get(i).call.callPlayerItemHeldEvent(event)) {
+                            Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
+                        }
                     }
                 }
                 return;
@@ -190,8 +200,10 @@ public class PlayerEvents implements Listener {
                 for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
                     if (FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                         if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.GETHITBYPROJECTILE) {
-                            if (Util.getPlayerConfig((Player) target).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                                FairyTailCraft.registeredEvents.get(i).call.callEntityHitByProjectilEvent(event);
+                            if (Util.getPlayerConfig((Player) target).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                                if (FairyTailCraft.registeredEvents.get(i).call.callEntityHitByProjectilEvent(event)) {
+                                    Util.getPlayerConfig((Player) target).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
+                                }
                             }
                         }
 
@@ -221,8 +233,9 @@ public class PlayerEvents implements Listener {
             String mageType = Util.getPlayerConfig((Player) target).getMageType();
             for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
                 if (FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
-                    if (Util.getPlayerConfig((Player) target).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                        FairyTailCraft.registeredEvents.get(i).call.callEntityDamageByEntityEvent(event);
+                    if (Util.getPlayerConfig((Player) target).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                        if(FairyTailCraft.registeredEvents.get(i).call.callEntityDamageByEntityEvent(event))
+                            Util.getPlayerConfig((Player) target).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
                     }
                 }
             }
@@ -266,8 +279,9 @@ public class PlayerEvents implements Listener {
             for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
                 if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                     if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.DEATH) {
-                        if (Util.getPlayerConfig((Player) event.getEntity()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                            FairyTailCraft.registeredEvents.get(i).call.callPlayerDeathEvent(event);
+                        if (Util.getPlayerConfig((Player) event.getEntity()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                            if(FairyTailCraft.registeredEvents.get(i).call.callPlayerDeathEvent(event))
+                                Util.getPlayerConfig((Player) event.getEntity()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
                         }
                     }
                     return;

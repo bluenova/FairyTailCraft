@@ -22,57 +22,73 @@ public abstract class MagePluginEvent {
     /**
      * Called when EventType is INTERACT
      * @param event
+     * @return Call Successfully?
      */
-    public void callPlayerInteractEvent(PlayerInteractEvent event) {
+    public boolean callPlayerInteractEvent(PlayerInteractEvent event) {
+        return false;
     }
 
     /**
      * Called when EventType is GETHITBYENTITY or when Other Events by Shooter cause a ProjectileHitEvent
      * @param event
+     * @return Call Successfully?
      */
-    public void callEntityHitByProjectilEvent(ProjectileHitEvent event) {
+    public boolean callEntityHitByProjectilEvent(ProjectileHitEvent event) {
+        return false;
     }
 
     /**
      * Called when EventType is DEATH
      * @param event
+     * @return Call Successfully?
      */
-    public void callPlayerDeathEvent(PlayerDeathEvent event) {
+    public boolean callPlayerDeathEvent(PlayerDeathEvent event) {
+        return false;
     }
 
     /**
      * Called when EventType is FISH
      * @param event
+     * @return Call Successfully?
      */
-    public void callPlayerFishEvent(PlayerFishEvent event) {
+    public boolean callPlayerFishEvent(PlayerFishEvent event) {
+        return false;
     }
 
     /**
      * Called When EventType is VELOCITY
      * @param event
+     * @return Call Successfully?
      */
-    public void callPlayerViolencityEvent(PlayerVelocityEvent event) {
+    public boolean callPlayerViolencityEvent(PlayerVelocityEvent event) {
+        return false;
     }
 
     /**
      * Called when EventType is INVENTORY
      * @param event
+     * @return Call Successfully?
      */
     @Deprecated
-    public void callPlayerInventoryEvent(PlayerInventoryEvent event) {
+    public boolean callPlayerInventoryEvent(PlayerInventoryEvent event) {
+        return false;
     }
 
     /**
      * Called when EventType is ITEM
      * @param event
+     * @return Call Successfully?
      */
-    public void callPlayerItemHeldEvent(PlayerItemHeldEvent event) {
+    public boolean callPlayerItemHeldEvent(PlayerItemHeldEvent event) {
+        return false;
     }
 
     /**
      * Called when EventType is GETDMGBYENTITY or wen Damager has Magic active
      * @param event
+     * @return Call Successfully?
      */
-    public void callEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+    public boolean callEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+        return false;
     }
 }

@@ -257,4 +257,18 @@ public class PlayerConfig {
         Integer maxMana = this.config.getInt("maxMana");
         return maxMana;
     }
+
+    public boolean delCalcManaCheck(Integer value) {
+        int level = this.getLevel();
+        Double mana = value.doubleValue();
+        for(int i = 0; i < level; i++) {
+            mana = mana + mana * 0.05;
+        }
+        Integer imana = this.config.getInt("mana");
+        imana -= mana.intValue();
+        if (imana < 0) {
+            return false;
+        }
+        return true;
+    }
 }
