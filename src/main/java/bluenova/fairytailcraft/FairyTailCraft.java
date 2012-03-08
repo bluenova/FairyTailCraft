@@ -26,6 +26,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Server;
+import org.bukkit.entity.LivingEntity;
 
 /**
  * oreRespawn for Bukkit
@@ -76,6 +77,11 @@ public class FairyTailCraft extends JavaPlugin {
      * The Bukkit Server
      */
     public static Server server;
+    /**
+     * Player owned Monsers
+     */
+    public static HashMap<Player, List<LivingEntity>> ownedLivingEntitys = new HashMap<Player, List<LivingEntity>>();
+    
     
     @Override
     public void onEnable() {

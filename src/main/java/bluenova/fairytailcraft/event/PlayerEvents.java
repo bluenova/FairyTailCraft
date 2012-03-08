@@ -8,6 +8,7 @@ import bluenova.fairytailcraft.FairyTailCraft;
 import bluenova.fairytailcraft.Util.ManaRegenThread;
 import bluenova.fairytailcraft.Util.Util;
 import bluenova.fairytailcraft.config.PlayerConfig;
+import java.util.List;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -181,24 +182,27 @@ public class PlayerEvents implements Listener {
     @EventHandler
     public void playerHitByProjectile(ProjectileHitEvent event) {
         Projectile proj = (Projectile) event.getEntity();
-        Entity target = proj.getNearbyEntities(1, 1, 1).get(0);
-        if (target instanceof Player) {
-            String mageType = Util.getPlayerConfig((Player) target).getMageType();
-            for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
-                if (FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
-                    if (Util.getPlayerConfig((Player) target).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
-                        FairyTailCraft.registeredEvents.get(i).call.callEntityHitByProjectilEvent(event);
-                    }
+        List<Entity> get = proj.getNearbyEntities(1, 1, 1);
+        if (get.size() > 0) {
+            Entity target = get.get(0);
+            if (target instanceof Player) {
+                String mageType = Util.getPlayerConfig((Player) target).getMageType();
+                for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
+                    if (FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
+                        if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.GETHITBYPROJECTILE) {
+                            if (Util.getPlayerConfig((Player) target).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                                FairyTailCraft.registeredEvents.get(i).call.callEntityHitByProjectilEvent(event);
+                            }
+                        }
 
+                    }
                 }
             }
-        }
-        if (proj.getShooter() instanceof Player) {
-            String magic = FairyTailCraft.activeMagic.get((Player) proj.getShooter());
-            String mageType = Util.getPlayerConfig((Player) proj.getShooter()).getMageType();
-            for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
-                if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
-                    if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.GETHITBYPROJECTILE) {
+            if (proj.getShooter() instanceof Player) {
+                String magic = FairyTailCraft.activeMagic.get((Player) proj.getShooter());
+                String mageType = Util.getPlayerConfig((Player) proj.getShooter()).getMageType();
+                for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
+                    if (FairyTailCraft.registeredEvents.get(i).name.equals(magic) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                         FairyTailCraft.registeredEvents.get(i).call.callEntityHitByProjectilEvent(event);
                     }
                 }

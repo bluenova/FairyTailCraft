@@ -51,9 +51,9 @@ public class PlayerConfig {
         this.config.set("name", this.player.getName());
         this.config.set("magetype", "none");
         this.config.set("exp", 0);
-        this.config.set("level", 0);
-        this.config.set("mana", 0);
-        this.config.set("maxmana", 0);
+        this.config.set("level", 1);
+        this.config.set("mana", 100);
+        this.config.set("maxMana", 0);
         saveConfig();
     }
 
@@ -104,7 +104,7 @@ public class PlayerConfig {
      * @return Magic Level
      */
     public int getLevel() {
-        Integer level = this.config.getInt("level", 0);
+        Integer level = this.config.getInt("level");
         return level;
     }
 
@@ -113,7 +113,7 @@ public class PlayerConfig {
      * @param amount Amout of EXP to add
      */
     public void addExp(int amount) {
-        Integer Exp = this.config.getInt("exp", 0);
+        Integer Exp = this.config.getInt("exp");
         Exp += amount;
         this.config.set("exp", Exp);
         try {
@@ -137,7 +137,7 @@ public class PlayerConfig {
      * @return Players EXP
      */
     public int getExp() {
-        Integer Exp = this.config.getInt("exp", 0);
+        Integer Exp = this.config.getInt("exp");
         return Exp;
     }
 
@@ -145,8 +145,8 @@ public class PlayerConfig {
      * Recalculate the Level of the Player and Send a Message to him/her if he Levels up/down.
      */
     public void recalculateLevel() {
-        Integer oldLevel = this.config.getInt("level", 0);
-        Integer Exp = this.config.getInt("exp", 0);
+        Integer oldLevel = this.config.getInt("level");
+        Integer Exp = this.config.getInt("exp");
         double neededExp = 100.00 * FairyTailCraft.configuration.getlevelMultibler();
         Integer newLevel = 1;
         while (neededExp < Exp && newLevel != FairyTailCraft.configuration.getMaxLevel()) {
@@ -158,14 +158,15 @@ public class PlayerConfig {
         } else {
             player.sendMessage(ChatColor.RED + "Leveled down to Level " + newLevel + "!");
         }
-        recalculateMaxMana();
+        this.config.set("level", newLevel);
+        recalculatemaxMana();
     }
 
     /**
      * Recalculates the Maximal mana of a Player
      */
-    public void recalculateMaxMana() {
-        Integer level = this.config.getInt("level", 0);
+    public void recalculatemaxMana() {
+        Integer level = this.config.getInt("level");
         Double maxMana = 100.0 + FairyTailCraft.configuration.getManaPerLevelMultibler();
         for (int i = 0; i < level; i++) {
             maxMana = maxMana + (maxMana * 0.1);
@@ -183,18 +184,18 @@ public class PlayerConfig {
      * @return current mana of Player
      */
     public Integer getMana() {
-        Integer mana = this.config.getInt("mana", 0);
+        Integer mana = this.config.getInt("mana");
         return mana;
     }
 
     /**
-     * Set mana to Config, Sets Maxmana if the Value gets bigger then the MaxMana
+     * Set mana to Config, Sets maxMana if the Value gets bigger then the maxMana
      * @param value Mana to Set
      */
     public void setMana(Integer value) {
-        Integer maxmana = this.config.getInt("maxmana", 0);
-        if (value > maxmana) {
-            value = maxmana;
+        Integer maxMana = this.config.getInt("maxMana");
+        if (value > maxMana) {
+            value = maxMana;
         }
 
         this.config.set("mana", value);
@@ -202,15 +203,15 @@ public class PlayerConfig {
     }
     
     /**
-     * Add mana to Config, Sets Maxmana if the Value gets bigger then the MaxMana
+     * Add mana to Config, Sets maxMana if the Value gets bigger then the maxMana
      * @param value
      */
     public void addMana(Integer value) {
-        Integer maxmana = this.config.getInt("maxmana", 0);
-        Integer mana = this.config.getInt("mana", 0);
+        Integer maxMana = this.config.getInt("maxMana");
+        Integer mana = this.config.getInt("mana");
         mana += value;
-        if (mana > maxmana) {
-            mana = maxmana;
+        if (mana > maxMana) {
+            mana = maxMana;
         }
 
         this.config.set("mana", mana);
@@ -223,7 +224,7 @@ public class PlayerConfig {
      * @return mana was removed (if Player has not anough mana return false)
      */
     public boolean delMana(Integer value) {
-        Integer mana = this.config.getInt("mana", 0);
+        Integer mana = this.config.getInt("mana");
         mana -= value;
         if (mana < 0) {
             return false;
@@ -252,8 +253,8 @@ public class PlayerConfig {
      * Returns the Maximal Mana of a Player
      * @return Maximal Mana
      */
-    public Integer getMaxMana() {
-        Integer maxmana = this.config.getInt("maxmana", 0);
-        return maxmana;
+    public Integer getmaxMana() {
+        Integer maxMana = this.config.getInt("maxMana");
+        return maxMana;
     }
 }

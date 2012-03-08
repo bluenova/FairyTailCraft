@@ -2,7 +2,9 @@ package bluenova.fairytailcraft.plugin;
 
 import bluenova.fairytailcraft.config.PlayerConfig;
 import bluenova.fairytailcraft.event.MageEventType;
+import java.util.List;
 import org.bukkit.Server;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 /**
@@ -32,4 +34,18 @@ public interface MagePluginManager {
      * @return PlayerConfig of Player
      */
     PlayerConfig getPlayerConfig(Player player);
+        
+    /**
+     * Get Player Owned Monsers
+     * @param pl Player that owns the monsers
+     * @return List of Playerowned Monsers
+     */
+    public List<LivingEntity> getPlayerOwnedEntitys(Player pl);
+
+    /**
+     * Sets Player Owned Monsers
+     * @param pl Player that owns the monsers
+     * @param list List of Playerowned Monsers
+     */
+    public void setPlayerOwnedEntitys(Player pl, List<LivingEntity> list);
 }

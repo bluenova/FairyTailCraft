@@ -226,7 +226,7 @@ public class CommandListener {
                         if (!playerConfig.getMageType().equals("none")) {
                             sent.sendMessage(ChatColor.YELLOW + "Level: " + playerConfig.getLevel());
                             sent.sendMessage(ChatColor.YELLOW + "EXP: " + playerConfig.getExp());
-                            sent.sendMessage(ChatColor.YELLOW + "Mana: " + playerConfig.getMana() + "/" + playerConfig.getMaxMana());
+                            sent.sendMessage(ChatColor.YELLOW + "Mana: " + playerConfig.getMana() + "/" + playerConfig.getmaxMana());
                             sent.sendMessage(ChatColor.YELLOW + "Activespell: " + FairyTailCraft.activeMagic.get(player));
                         }
 
@@ -247,7 +247,7 @@ public class CommandListener {
                         if (!playerConfig.getMageType().equals("none")) {
                             sent.sendMessage(ChatColor.YELLOW + "Level: " + playerConfig.getLevel());
                             sent.sendMessage(ChatColor.YELLOW + "EXP: " + playerConfig.getExp());
-                            sent.sendMessage(ChatColor.YELLOW + "Mana: " + playerConfig.getMana() + "/" + playerConfig.getMaxMana());
+                            sent.sendMessage(ChatColor.YELLOW + "Mana: " + playerConfig.getMana() + "/" + playerConfig.getmaxMana());
                             sent.sendMessage(ChatColor.YELLOW + "Activespell: " + FairyTailCraft.activeMagic.get(player));
                         }
 
