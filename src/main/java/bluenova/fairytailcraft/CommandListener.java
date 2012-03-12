@@ -192,10 +192,12 @@ public class CommandListener {
                     sent.sendMessage(ChatColor.GREEN + "Your Magics:");
                     for (MageEvent ev : FairyTailCraft.registeredEvents) {
                         if (!ev.hidden) {
-                            if (ev.minLevel > Util.getPlayerConfig(sent).getLevel()) {
-                                sent.sendMessage(ChatColor.YELLOW + "- " + ev.name + " (Level " + ev.minLevel + ")");
-                            } else {
-                                sent.sendMessage(ChatColor.GRAY + "- " + ev.name + " (Level " + ev.minLevel + ")");
+                            if (ev.magicType.equals(magic)) {
+                                if (ev.minLevel > Util.getPlayerConfig(sent).getLevel()) {
+                                    sent.sendMessage(ChatColor.YELLOW + "- " + ev.name + " (Level " + ev.minLevel + ")");
+                                } else {
+                                    sent.sendMessage(ChatColor.GRAY + "- " + ev.name + " (Level " + ev.minLevel + ")");
+                                }
                             }
                         }
                     }
