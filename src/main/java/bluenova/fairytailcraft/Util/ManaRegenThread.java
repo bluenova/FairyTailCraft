@@ -53,6 +53,6 @@ public class ManaRegenThread extends Thread {
         for(int i = 0; i < level; i++) {
             baseManaRegen = baseManaRegen + (baseManaRegen * 0.05);
         }
-        return baseManaRegen.intValue();
+        return new Double(Math.round(baseManaRegen)).intValue();
     }
 }

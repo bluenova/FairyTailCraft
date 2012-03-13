@@ -149,7 +149,7 @@ public class PlayerConfig {
         Integer Exp = this.config.getInt("exp");
         double neededExp = 100.00 * FairyTailCraft.configuration.getlevelMultibler();
         Integer newLevel = 1;
-        while (neededExp < Exp && newLevel != FairyTailCraft.configuration.getMaxLevel()) {
+        while (neededExp < Exp && (newLevel < FairyTailCraft.configuration.getMaxLevel() || FairyTailCraft.configuration.getMaxLevel() == -1)) {
             newLevel++;
             neededExp = neededExp + (neededExp * 0.08);
         }
@@ -171,10 +171,10 @@ public class PlayerConfig {
         for (int i = 0; i < level; i++) {
             maxMana = maxMana + (maxMana * 0.1);
         }
-        if (maxMana > FairyTailCraft.configuration.getMaxMana()) {
+        if (maxMana > FairyTailCraft.configuration.getMaxMana() && FairyTailCraft.configuration.getMaxMana() != -1) {
             maxMana = FairyTailCraft.configuration.getMaxMana().doubleValue();
         }
-        int mMana = maxMana.intValue();
+        int mMana = new Double(Math.round(maxMana)).intValue();
         this.config.set("maxMana", mMana);
         saveConfig();
     }
@@ -246,7 +246,7 @@ public class PlayerConfig {
         for(int i = 0; i < level; i++) {
             mana = mana + mana * 0.05;
         }
-        return delMana(mana.intValue());
+        return delMana(new Double(Math.round(mana)).intValue());
     }
 
     /**
@@ -265,7 +265,7 @@ public class PlayerConfig {
             mana = mana + mana * 0.05;
         }
         Integer imana = this.config.getInt("mana");
-        imana -= mana.intValue();
+        imana -= new Double(Math.round(mana)).intValue();
         if (imana < 0) {
             return false;
         }
