@@ -68,7 +68,7 @@ public class FairyTailCraft extends JavaPlugin {
     /**
      * Hashmap with Active Magics of the Online Players
      */
-    public static HashMap<Player, String> activeMagic = new HashMap<Player, String>();
+    public static HashMap<Player, String[]> activeMagic = new HashMap<Player, String[]>();
     /**
      * The Plugin Manager of the Bukkit Server
      */
@@ -157,10 +157,12 @@ public class FairyTailCraft extends JavaPlugin {
             p.setPluginManager(manager);
         }
         for (MagePlugin p : plugins) {
-            FairyTailCraft.MagicNames.add(p.getMagicName());
-        }
-        for (MagePlugin p : plugins) {
-            p.loadPlugin();
+            if(!FairyTailCraft.MagicNames.contains((p.getMagicName()))) {
+                FairyTailCraft.MagicNames.add(p.getMagicName()); 
+                p.loadPlugin();
+            } else {
+                System.out.println("Magic "+ p.getMagicName() + " already load! Ignoring it!");
+            }
         }
     }
     

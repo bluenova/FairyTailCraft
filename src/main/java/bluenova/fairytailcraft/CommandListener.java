@@ -48,6 +48,7 @@ public class CommandListener {
                 sent.sendMessage(ChatColor.YELLOW + "Fairy Tail Mage Plugin");
                 sent.sendMessage(ChatColor.YELLOW + "/ft - shows this page");
                 sent.sendMessage(ChatColor.YELLOW + "/ft list - lists all MagicTypes");
+                sent.sendMessage(ChatColor.YELLOW + "/ft info [player] - Shows info about you [or an other player]");
                 if (Util.getPlayerConfig(sent) != null && Util.getPlayerConfig(sent).getMageType().equals("none")) {
                     sent.sendMessage(ChatColor.YELLOW + "/ft learn <magic> - Learns a MagicType");
                 }
@@ -136,7 +137,19 @@ public class CommandListener {
                     MageEvent eventIsRegistered = eventIsRegistered(args[1], magic);
                     if (eventIsRegistered != null) {
                         if (eventIsRegistered.minLevel <= Util.getPlayerConfig(sent).getLevel()) {
-                            FairyTailCraft.activeMagic.put(sent, args[1]);
+                            String[] cast;
+                            if(args.length > 2) {
+                               cast = new String[] {
+                                    args[1],
+                                    Integer.getInteger(args[2], 1).toString()
+                                }; 
+                            } else {
+                               cast = new String[] {
+                                    args[1],
+                                    "1"
+                                }; 
+                            }
+                            FairyTailCraft.activeMagic.put(sent, cast);
                             sender.sendMessage(ChatColor.GREEN + "Set Magic " + args[1] + " to your Hand!");
                         } else {
                             sender.sendMessage(ChatColor.RED + "You must at least be level " + eventIsRegistered.minLevel + "!");

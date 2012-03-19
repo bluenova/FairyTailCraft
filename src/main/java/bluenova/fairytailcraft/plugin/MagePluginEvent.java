@@ -24,7 +24,7 @@ public abstract class MagePluginEvent {
      * @param event
      * @return Call Successfully?
      */
-    public boolean callPlayerInteractEvent(PlayerInteractEvent event) {
+    public boolean callPlayerInteractEvent(PlayerInteractEvent event, Integer level) {
         return false;
     }
 
@@ -33,7 +33,7 @@ public abstract class MagePluginEvent {
      * @param event
      * @return Call Successfully?
      */
-    public boolean callEntityHitByProjectilEvent(ProjectileHitEvent event) {
+    public boolean callEntityHitByProjectilEvent(ProjectileHitEvent event, Integer level) {
         return false;
     }
 
@@ -42,7 +42,7 @@ public abstract class MagePluginEvent {
      * @param event
      * @return Call Successfully?
      */
-    public boolean callPlayerDeathEvent(PlayerDeathEvent event) {
+    public boolean callPlayerDeathEvent(PlayerDeathEvent event, Integer level) {
         return false;
     }
 
@@ -51,7 +51,7 @@ public abstract class MagePluginEvent {
      * @param event
      * @return Call Successfully?
      */
-    public boolean callPlayerFishEvent(PlayerFishEvent event) {
+    public boolean callPlayerFishEvent(PlayerFishEvent event, Integer level) {
         return false;
     }
 
@@ -60,7 +60,7 @@ public abstract class MagePluginEvent {
      * @param event
      * @return Call Successfully?
      */
-    public boolean callPlayerViolencityEvent(PlayerVelocityEvent event) {
+    public boolean callPlayerViolencityEvent(PlayerVelocityEvent event, Integer level) {
         return false;
     }
 
@@ -70,7 +70,7 @@ public abstract class MagePluginEvent {
      * @return Call Successfully?
      */
     @Deprecated
-    public boolean callPlayerInventoryEvent(PlayerInventoryEvent event) {
+    public boolean callPlayerInventoryEvent(PlayerInventoryEvent event, Integer level) {
         return false;
     }
 
@@ -79,7 +79,7 @@ public abstract class MagePluginEvent {
      * @param event
      * @return Call Successfully?
      */
-    public boolean callPlayerItemHeldEvent(PlayerItemHeldEvent event) {
+    public boolean callPlayerItemHeldEvent(PlayerItemHeldEvent event, Integer level) {
         return false;
     }
 
@@ -88,7 +88,7 @@ public abstract class MagePluginEvent {
      * @param event
      * @return Call Successfully?
      */
-    public boolean callEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+    public boolean callEntityDamageByEntityEvent(EntityDamageByEntityEvent event, Integer level) {
         return false;
     }
 }
