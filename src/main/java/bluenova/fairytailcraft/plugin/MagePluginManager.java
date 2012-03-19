@@ -48,4 +48,11 @@ public interface MagePluginManager {
      * @param list List of Playerowned Monsers
      */
     public void setPlayerOwnedEntitys(Player pl, List<LivingEntity> list);
+    
+     /**
+     * Registers a CommandListener Class
+     * @param cls Class with Commands
+     * @return Class successfuly registered (false if class is already registered)
+     */
+    public boolean registerCommandListener(Class<?> cls, MagePlugin plg);
 }

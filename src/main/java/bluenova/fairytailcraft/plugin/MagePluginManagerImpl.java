@@ -81,4 +81,14 @@ public class MagePluginManagerImpl implements MagePluginManager {
     public void setPlayerOwnedEntitys(Player pl, List<LivingEntity> list) {
         FairyTailCraft.ownedLivingEntitys.put(pl, list); 
     }
+
+     /**
+     * Registers a CommandListener Class
+     * @param cls Class with Commands
+     * @return Class successfuly registered (false if class is already registered)
+     */
+    @Override
+    public boolean registerCommandListener(Class<?> cls, MagePlugin plg) {
+        return FairyTailCraft.command.registerClass(cls, plg);
+    }
 }

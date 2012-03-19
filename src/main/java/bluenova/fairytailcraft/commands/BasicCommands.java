@@ -1,47 +1,27 @@
-package bluenova.fairytailcraft;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package bluenova.fairytailcraft.commands;
 
+import bluenova.fairytailcraft.FairyTailCraft;
+import bluenova.fairytailcraft.commands.Util.Command;
 import bluenova.fairytailcraft.Util.Util;
 import bluenova.fairytailcraft.config.PlayerConfig;
 import bluenova.fairytailcraft.event.MageEvent;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * 
+ *
  * @author Sven
  */
-public class CommandListener {
+public class BasicCommands {
 
-    /**
-     * Constructor
-     * @param sender sender of Command
-     * @param command the Command
-     * @param cmd Command as String
-     * @param args Parameters of Command
-     * @return
-     */
-    public boolean command(CommandSender sender, Command command, String cmd, String[] args) {
-        if (cmd.equals("ftc") || cmd.equals("fairytailcraft") || cmd.equals("ft") || cmd.equals("fairytail")) {
-            if (args.length == 0) {
-                return this.returnInfo(sender);
-            } else if (args[0].equals("learn")) {
-                return this.learnMagic(sender, args);
-            } else if (args[0].equals("info")) {
-                return this.returnMyInfo(sender, args);
-            } else if (args[0].equals("cast")) {
-                return this.setCastMagic(sender, args);
-            } else if (args[0].equals("list")) {
-                return returnMagicList(sender);
-            } else if (args[0].equals("mymagics")) {
-                return returnSenderMagics(sender);
-            }
-        }
-        return false;
-    }
-
-    private boolean returnInfo(CommandSender sender) {
+    @Command(cmd = {"ftc", "fairytailcraft", "ft", "fairytail"},
+    firstArg = {"", "help"})
+    public boolean returnInfo(CommandSender sender, String cmd, String[] args) {
         if (sender instanceof Player) {
             Player sent = (Player) sender;
             if (hasPermission(sent, "fairytail.general")) {
@@ -85,10 +65,12 @@ public class CommandListener {
         }
     }
 
-    private boolean learnMagic(CommandSender sender, String[] args) {
+    @Command(cmd = {"ftc", "fairytailcraft", "ft", "fairytail"},
+    firstArg = {"learn"})
+    public boolean learnMagic(CommandSender sender, String cmd, String[] args) {
         if (args.length != 2) {
             sender.sendMessage(ChatColor.RED + "Wrong Parameters!");
-            return returnInfo(sender);
+            return returnInfo(sender, cmd, args);
         }
         if (sender instanceof Player) {
             Player sent = (Player) sender;
@@ -120,10 +102,12 @@ public class CommandListener {
         }
     }
 
-    private boolean setCastMagic(CommandSender sender, String[] args) {
+    @Command(cmd = {"ftc", "fairytailcraft", "ft", "fairytail"},
+    firstArg = {"cast"})
+    public boolean setCastMagic(CommandSender sender, String cmd, String[] args) {
         if (args.length > 2) {
             sender.sendMessage(ChatColor.RED + "Wrong Parameters!");
-            return returnInfo(sender);
+            return returnInfo(sender, cmd, args);
         }
         if (sender instanceof Player) {
             Player sent = (Player) sender;
@@ -138,16 +122,16 @@ public class CommandListener {
                     if (eventIsRegistered != null) {
                         if (eventIsRegistered.minLevel <= Util.getPlayerConfig(sent).getLevel()) {
                             String[] cast;
-                            if(args.length > 2) {
-                               cast = new String[] {
+                            if (args.length > 2) {
+                                cast = new String[]{
                                     args[1],
                                     Integer.getInteger(args[2], 1).toString()
-                                }; 
+                                };
                             } else {
-                               cast = new String[] {
+                                cast = new String[]{
                                     args[1],
                                     "1"
-                                }; 
+                                };
                             }
                             FairyTailCraft.activeMagic.put(sent, cast);
                             sender.sendMessage(ChatColor.GREEN + "Set Magic " + args[1] + " to your Hand!");
@@ -169,7 +153,7 @@ public class CommandListener {
         }
     }
 
-    private MageEvent eventIsRegistered(String name, String MagicType) {
+    public MageEvent eventIsRegistered(String name, String MagicType) {
         for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
             if (FairyTailCraft.registeredEvents.get(i).name.equals(name) && FairyTailCraft.registeredEvents.get(i).magicType.equals(MagicType)) {
                 return FairyTailCraft.registeredEvents.get(i);
@@ -178,7 +162,9 @@ public class CommandListener {
         return null;
     }
 
-    private boolean returnMagicList(CommandSender sender) {
+    @Command(cmd = {"ftc", "fairytailcraft", "ft", "fairytail"},
+    firstArg = {"list"})
+    public boolean returnMagicList(CommandSender sender, String cmd, String[] args) {
         if (sender instanceof Player) {
             Player sent = (Player) sender;
             if (hasPermission(sent, "fairytail.list")) {
@@ -196,7 +182,9 @@ public class CommandListener {
         }
     }
 
-    private boolean returnSenderMagics(CommandSender sender) {
+    @Command(cmd = {"ftc", "fairytailcraft", "ft", "fairytail"},
+    firstArg = {"mymagics"})
+    public boolean returnSenderMagics(CommandSender sender, String cmd, String[] args) {
         if (sender instanceof Player) {
             Player sent = (Player) sender;
             String magic = Util.getPlayerConfig(sent).getMageType();
@@ -228,7 +216,9 @@ public class CommandListener {
         }
     }
 
-    private boolean returnMyInfo(CommandSender sender, String[] args) {
+    @Command(cmd = {"ftc", "fairytailcraft", "ft", "fairytail"},
+    firstArg = {"info"})
+    public boolean returnMyInfo(CommandSender sender, String cmd, String[] args) {
         if (sender instanceof Player) {
             Player sent = (Player) sender;
             if (args.length > 1) {

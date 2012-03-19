@@ -1,5 +1,6 @@
 package bluenova.fairytailcraft;
 
+import bluenova.fairytailcraft.commands.Util.CommandListener;
 import bluenova.fairytailcraft.Util.ManaRegenThread;
 import bluenova.fairytailcraft.config.MainConfig;
 import bluenova.fairytailcraft.config.PlayerConfig;
@@ -60,7 +61,7 @@ public class FairyTailCraft extends JavaPlugin {
     /**
      * Listener Object For commands
      */
-    public static CommandListener command = new CommandListener();
+    public static CommandListener command;
     /**
      * List of Registered MageEvents
      */
@@ -82,14 +83,18 @@ public class FairyTailCraft extends JavaPlugin {
      */
     public static HashMap<Player, List<LivingEntity>> ownedLivingEntitys = new HashMap<Player, List<LivingEntity>>();
     
+
+    public static Plugin plugin;
     
     @Override
     public void onEnable() {
+        FairyTailCraft.plugin = this;
         FairyTailCraft.pm = getServer().getPluginManager();
         FairyTailCraft.server = getServer();
         this.setupPermissions();
         FairyTailCraft.configuration = new MainConfig();
-        
+        FairyTailCraft.command = new CommandListener();
+                
         FairyTailCraft.pm.registerEvents(new PlayerEvents(), this);        
         
         this.loadMagePlugins();
