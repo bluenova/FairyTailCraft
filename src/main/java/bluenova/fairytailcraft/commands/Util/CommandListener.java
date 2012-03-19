@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -69,10 +70,10 @@ public class CommandListener {
                         firstArg = args[0];
                     }
                     List<String> fst = new ArrayList<String>();
-                    for (String s : annotation.firstArg()) {
-                        fst.add(s);
-                    }
-                    if (fst.contains(firstArg)) {
+                    fst.addAll(Arrays.asList(annotation.firstArg()));
+                    List<String> cmds = new ArrayList<String>();
+                    cmds.addAll(Arrays.asList(annotation.cmd()));
+                    if (fst.contains(firstArg) && cmds.contains(cmd)) {
                         try {
                             cls.getConstructor();
                             newInstance = cls.newInstance();
