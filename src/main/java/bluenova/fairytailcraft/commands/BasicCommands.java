@@ -120,10 +120,6 @@ public class BasicCommands {
     @Command(cmd = {"ftc", "fairytailcraft", "ft", "fairytail"},
     firstArg = {"cast"})
     public boolean setCastMagic(CommandSender sender, String cmd, String[] args) {
-        if (args.length > 2) {
-            sender.sendMessage(ChatColor.RED + "Wrong Parameters!");
-            return returnInfo(sender, cmd, args);
-        }
         if (sender instanceof Player) {
             Player sent = (Player) sender;
             String magic = Util.getPlayerConfig(sent).getMageType();
@@ -138,9 +134,15 @@ public class BasicCommands {
                         if (eventIsRegistered.minLevel <= Util.getPlayerConfig(sent).getLevel()) {
                             String[] cast;
                             if (args.length > 2) {
+                                Integer valInt = 1;
+                                try {
+                                    valInt = new Integer(args[2]);
+                                } catch (Exception e) {
+                                }
+                                String val = valInt.toString();
                                 cast = new String[]{
                                     args[1],
-                                    Integer.getInteger(args[2], 1).toString()
+                                    val
                                 };
                             } else {
                                 cast = new String[]{
