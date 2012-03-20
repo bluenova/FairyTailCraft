@@ -44,8 +44,8 @@ public class MainConfig {
 
     private void createConfig() {
         this.config.set("config.configVersion", "0.1");
-        this.config.set("config.main.magicUnique", true);
-        this.config.set("config.level.startLevel", 1);
+        //this.config.set("config.main.magicUnique", true); //Not Used Yet
+        //this.config.set("config.level.startLevel", 1); //Not Used Yet
         this.config.set("config.level.levelMultibler", 1.0);
         this.config.set("config.level.maxlevel", -1);
         this.config.set("config.mana.maxMana", -1);

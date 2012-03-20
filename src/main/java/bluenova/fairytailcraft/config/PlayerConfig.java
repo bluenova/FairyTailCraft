@@ -51,18 +51,29 @@ public class PlayerConfig {
         this.config.set("name", this.player.getName());
         this.config.set("magetype", "none");
         this.config.set("exp", 0);
-        this.config.set("level", 1);
+        this.config.set("level", 0);
         this.config.set("mana", 100);
         this.config.set("maxMana", 0);
         saveConfig();
     }
 
-    private void saveConfig() {
+    private synchronized void saveConfig() {
         try {
             this.config.save(this.file);
         } catch (IOException ex) {
             Logger.getLogger(PlayerConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    /**
+     * Resets the config on an Player (sets everything to zero)
+     */
+    public void resetConfig() {
+        this.file.delete();
+        this.config = new YamlConfiguration();
+        this.createConfig();
+        recalculateLevel();
+        recalculatemaxMana();
     }
 
     /**
@@ -153,7 +164,7 @@ public class PlayerConfig {
             newLevel++;
             neededExp = neededExp + (neededExp * 0.08);
         }
-        if (oldLevel > newLevel) {
+        if (oldLevel < newLevel) {
             player.sendMessage(ChatColor.GREEN + "Leveled up to Level " + newLevel + "!");
         } else {
             player.sendMessage(ChatColor.RED + "Leveled down to Level " + newLevel + "!");

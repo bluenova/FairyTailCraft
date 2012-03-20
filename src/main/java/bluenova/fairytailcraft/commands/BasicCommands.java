@@ -37,12 +37,14 @@ public class BasicCommands {
                 }
 
                 if (Util.getPlayerConfig(sent) != null && !Util.getPlayerConfig(sent).getMageType().equals("none")) {
+                    sent.sendMessage(ChatColor.YELLOW + "/ft unlearn - Unlearns your Magic - You get back to Zero");
                     sent.sendMessage(ChatColor.YELLOW + "/ft mymagics - Lists your Magics");
                     sent.sendMessage(ChatColor.YELLOW + "/ft cast <magicname> - Sets or Removes Magic to your Hand");
                     List<String> plgInfos = CommandListener.commandInfos.get(Util.getPlayerConfig(sent).getMageType());
-                    if(plgInfos != null) {
-                        for(String info : plgInfos)
-                           sent.sendMessage(ChatColor.YELLOW + info); 
+                    if (plgInfos != null) {
+                        for (String info : plgInfos) {
+                            sent.sendMessage(ChatColor.YELLOW + info);
+                        }
                     }
                 }
                 return true;
@@ -99,6 +101,29 @@ public class BasicCommands {
                     }
                 } else {
                     sender.sendMessage(ChatColor.RED + "Magic " + args[1] + " does not Exist!");
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            sender.sendMessage("Don't run this Command from Console!");
+            return true;
+        }
+    }
+
+    @Command(cmd = {"ftc", "fairytailcraft", "ft", "fairytail"},
+    firstArg = {"unlearn"})
+    public boolean unlearnMagic(CommandSender sender, String cmd, String[] args) {
+        if (sender instanceof Player) {
+            Player sent = (Player) sender;
+            if (hasPermission(sent, "fairytail.unlearn")) {
+                if (!Util.getPlayerConfig(sent).getMageType().equals("none")) {
+                    Util.getPlayerConfig(sent).resetConfig();
+                    sender.sendMessage(ChatColor.GREEN + "Unlearning successfully! You are Back to Zero!");
+                    return true;
+                } else {
+                    sender.sendMessage(ChatColor.RED + "You dont have a Magic!");
                     return true;
                 }
             } else {
