@@ -27,7 +27,7 @@ public class BasicCommands {
     public boolean returnInfo(CommandSender sender, String cmd, String[] args) {
         if (sender instanceof Player) {
             Player sent = (Player) sender;
-            if (hasPermission(sent, "fairytail.general")) {
+            if (Util.hasPermission(sent, "fairytail.general")) {
                 sent.sendMessage(ChatColor.YELLOW + "Fairy Tail Mage Plugin");
                 sent.sendMessage(ChatColor.YELLOW + "/ft - shows this page");
                 sent.sendMessage(ChatColor.YELLOW + "/ft list - lists all MagicTypes");
@@ -57,24 +57,6 @@ public class BasicCommands {
         }
     }
 
-    private boolean hasPermission(Player pl, String perm) {
-        if (FairyTailCraft.Permissions != null) {
-            if (FairyTailCraft.Permissions.has(pl, perm)) {
-                return true;
-            } else {
-                pl.sendMessage(ChatColor.RED + "No Permission!");
-                return false;
-            }
-        } else {
-            if (pl.hasPermission(perm) || pl.isOp()) {
-                return true;
-            } else {
-                pl.sendMessage(ChatColor.RED + "No Permission!");
-                return false;
-            }
-        }
-    }
-
     @Command(cmd = {"ftc", "fairytailcraft", "ft", "fairytail"},
     firstArg = {"learn"})
     public boolean learnMagic(CommandSender sender, String cmd, String[] args) {
@@ -84,9 +66,9 @@ public class BasicCommands {
         }
         if (sender instanceof Player) {
             Player sent = (Player) sender;
-            if (hasPermission(sent, "fairytail.learn")) {
+            if (Util.hasPermission(sent, "fairytail.learn")) {
                 if (FairyTailCraft.MagicNames.contains(args[1])) {
-                    if (hasPermission(sent, "fairytail." + args[1] + ".learn")) {
+                    if (Util.hasPermission(sent, "fairytail." + args[1] + ".learn")) {
                         if (Util.getPlayerConfig(sent).getMageType().equals("none")) {
                             Util.getPlayerConfig(sent).learnMagic(args[1]);
                             sender.sendMessage(ChatColor.GREEN + "Learned " + args[1] + " successfully!");
@@ -117,7 +99,7 @@ public class BasicCommands {
     public boolean unlearnMagic(CommandSender sender, String cmd, String[] args) {
         if (sender instanceof Player) {
             Player sent = (Player) sender;
-            if (hasPermission(sent, "fairytail.unlearn")) {
+            if (Util.hasPermission(sent, "fairytail.unlearn")) {
                 if (!Util.getPlayerConfig(sent).getMageType().equals("none")) {
                     Util.getPlayerConfig(sent).resetConfig();
                     sender.sendMessage(ChatColor.GREEN + "Unlearning successfully! You are Back to Zero!");
@@ -145,7 +127,7 @@ public class BasicCommands {
         if (sender instanceof Player) {
             Player sent = (Player) sender;
             String magic = Util.getPlayerConfig(sent).getMageType();
-            if (hasPermission(sent, "fairytail." + magic.toLowerCase() + ".cast")) {
+            if (Util.hasPermission(sent, "fairytail." + magic.toLowerCase() + ".cast")) {
                 if (args.length == 1) {
                     FairyTailCraft.activeMagic.put(sent, null);
                     sender.sendMessage(ChatColor.GREEN + "Removed Magic from your Hand!");
@@ -200,7 +182,7 @@ public class BasicCommands {
     public boolean returnMagicList(CommandSender sender, String cmd, String[] args) {
         if (sender instanceof Player) {
             Player sent = (Player) sender;
-            if (hasPermission(sent, "fairytail.list")) {
+            if (Util.hasPermission(sent, "fairytail.list")) {
                 sent.sendMessage(ChatColor.GREEN + "Magics on Server:");
                 for (String mag : FairyTailCraft.MagicNames) {
                     sent.sendMessage(ChatColor.YELLOW + "- " + mag);
@@ -222,7 +204,7 @@ public class BasicCommands {
             Player sent = (Player) sender;
             String magic = Util.getPlayerConfig(sent).getMageType();
             if (!magic.equals("none")) {
-                if (hasPermission(sent, "fairytail." + magic + ".list")) {
+                if (Util.hasPermission(sent, "fairytail." + magic + ".list")) {
                     sent.sendMessage(ChatColor.GREEN + "Your Magics:");
                     for (MageEvent ev : FairyTailCraft.registeredEvents) {
                         if (!ev.hidden) {
@@ -255,7 +237,7 @@ public class BasicCommands {
         if (sender instanceof Player) {
             Player sent = (Player) sender;
             if (args.length > 1) {
-                if (hasPermission(sent, "fairytail.info.other")) {
+                if (Util.hasPermission(sent, "fairytail.info.other")) {
                     Player player = FairyTailCraft.server.getPlayer(args[1]);
                     if (player != null) {
                         PlayerConfig playerConfig = Util.getPlayerConfig(player);
@@ -276,7 +258,7 @@ public class BasicCommands {
                     return false;
                 }
             } else {
-                if (hasPermission(sent, "fairytail.info.my")) {
+                if (Util.hasPermission(sent, "fairytail.info.my")) {
                     Player player = sent;
                     if (player != null) {
                         PlayerConfig playerConfig = Util.getPlayerConfig(player);
