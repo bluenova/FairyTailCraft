@@ -7,11 +7,14 @@ package bluenova.fairytailcraft.commands;
 import bluenova.fairytailcraft.FairyTailCraft;
 import bluenova.fairytailcraft.commands.Util.Command;
 import bluenova.fairytailcraft.Util.Util;
+import bluenova.fairytailcraft.commands.Util.CommandListener;
 import bluenova.fairytailcraft.config.PlayerConfig;
 import bluenova.fairytailcraft.event.MageEvent;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import sun.tools.jar.CommandLine;
 
 /**
  *
@@ -36,6 +39,11 @@ public class BasicCommands {
                 if (Util.getPlayerConfig(sent) != null && !Util.getPlayerConfig(sent).getMageType().equals("none")) {
                     sent.sendMessage(ChatColor.YELLOW + "/ft mymagics - Lists your Magics");
                     sent.sendMessage(ChatColor.YELLOW + "/ft cast <magicname> - Sets or Removes Magic to your Hand");
+                    List<String> plgInfos = CommandListener.commandInfos.get(Util.getPlayerConfig(sent).getMageType());
+                    if(plgInfos != null) {
+                        for(String info : plgInfos)
+                           sent.sendMessage(ChatColor.YELLOW + info); 
+                    }
                 }
                 return true;
             } else {

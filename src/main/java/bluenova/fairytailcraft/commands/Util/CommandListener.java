@@ -33,6 +33,11 @@ public class CommandListener {
      */
     private HashMap<Class<?>, MagePlugin> classesByPlugin = new HashMap<Class<?>, MagePlugin>();
     
+    /*
+     *  Infos for new /ft Commands       
+     */
+    public static HashMap<String, List<String>> commandInfos = new HashMap<String, List<String>>();
+    
     public CommandListener() {
         this.registerClass(BasicCommands.class, null);
     }
@@ -117,6 +122,7 @@ public class CommandListener {
             this.classesByPlugin.put(cls, byPlugin);
             return true;
         }
+        
         return false;
     }
     
@@ -132,6 +138,16 @@ public class CommandListener {
                     commandMap.register(FairyTailCraft.plugin.getDescription().getName(), cmd);
                     this.commandClasses.add(cls);
                     register = true;
+                    if(m.isAnnotationPresent(bluenova.fairytailcraft.commands.Util.CommandInfo.class)){
+                        bluenova.fairytailcraft.commands.Util.CommandInfo inf = m.getAnnotation(bluenova.fairytailcraft.commands.Util.CommandInfo.class);
+                        List<String> lst;
+                        if(CommandListener.commandInfos.get(inf.mageType()) == null)
+                            lst = new ArrayList<String>();
+                        else
+                            lst = CommandListener.commandInfos.get(inf.mageType());
+                        lst.add(inf.info());
+                        CommandListener.commandInfos.put(inf.mageType(), lst);
+                    }
                 } else {
                     System.out.println("CommandMap is Empty");
                 }
