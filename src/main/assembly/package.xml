@@ -15,13 +15,15 @@
 				<include>README*</include>
 			</includes>
 		</fileSet>
-		<!-- <fileSet>
-			<directory>${project.basedir}/Permissions/</directory>
-			<outputDirectory>/Permissions/</outputDirectory>
+		<fileSet>
+			<directory>${project.basedir}/plugins/</directory>
+			<outputDirectory>/FairyTailCraft/plugins</outputDirectory>
 			<includes>
-				<include>RENAME-ME.yml</include>
+				<include>FireMagic-0.1.jar</include>
+				<include>LightMagic-0.1.ja</include>
+				<include>BlacksmithMagic-0.1.jar</include>
 			</includes>
-		</fileSet> -->
+		</fileSet>
 	</fileSets>
 	<files>
 		<file>
