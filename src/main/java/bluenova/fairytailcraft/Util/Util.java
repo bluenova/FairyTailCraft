@@ -56,7 +56,7 @@ public class Util {
         if (get.containsKey(magic)) {
             Date dtLastCast = get.get(magic);
             Date dtNow = new Date();
-            if ((dtNow.getTime() + cooldown) > dtLastCast.getTime()) {
+            if (dtNow.getTime() > dtLastCast.getTime() + cooldown) {
                 return false;
             } else {
                 return true;

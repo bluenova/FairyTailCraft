@@ -158,11 +158,11 @@ public class PlayerConfig {
     public void recalculateLevel() {
         Integer oldLevel = this.config.getInt("level");
         Integer Exp = this.config.getInt("exp");
-        double neededExp = 100.00 * FairyTailCraft.configuration.getlevelMultibler();
+        double neededExp = 200.00 * FairyTailCraft.configuration.getlevelMultibler();
         Integer newLevel = 1;
         while (neededExp < Exp && (newLevel < FairyTailCraft.configuration.getMaxLevel() || FairyTailCraft.configuration.getMaxLevel() == -1)) {
             newLevel++;
-            neededExp = neededExp + (neededExp * 0.08);
+            neededExp = neededExp + (neededExp * 0.2);
         }
         if (oldLevel < newLevel) {
             player.sendMessage(ChatColor.GREEN + "Leveled up to Level " + newLevel + "!");

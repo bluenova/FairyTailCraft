@@ -93,7 +93,7 @@ public class PlayerEvents implements Listener {
                     if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
                         if (FairyTailCraft.registeredEvents.get(i).call != null) {
                             Long cd = FairyTailCraft.registeredEvents.get(i).cooldown;
-                            if (Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
+                            if (!Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
                                 if (FairyTailCraft.registeredEvents.get(i).call.callPlayerInteractEvent(event, new Integer(magic[1]))) {
                                     Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
                                     Util.setCooldown(event.getPlayer(), magic[0]);
@@ -124,7 +124,7 @@ public class PlayerEvents implements Listener {
                     if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
                         if (FairyTailCraft.registeredEvents.get(i).call != null) {
                             Long cd = FairyTailCraft.registeredEvents.get(i).cooldown;
-                            if (Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
+                            if (!Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
                                 if (FairyTailCraft.registeredEvents.get(i).call.callPlayerInteractEntityEvent(event, new Integer(magic[1]))) {
                                     Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
                                     Util.setCooldown(event.getPlayer(), magic[0]);
@@ -159,7 +159,7 @@ public class PlayerEvents implements Listener {
                     if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
                         if (FairyTailCraft.registeredEvents.get(i).call != null) {
                             Long cd = FairyTailCraft.registeredEvents.get(i).cooldown;
-                            if (Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
+                            if (!Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
                                 if (FairyTailCraft.registeredEvents.get(i).call.callPlayerFishEvent(event, new Integer(magic[1]))) {
                                     Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
                                     Util.setCooldown(event.getPlayer(), magic[0]);
@@ -194,7 +194,7 @@ public class PlayerEvents implements Listener {
                     if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
                         if (FairyTailCraft.registeredEvents.get(i).call != null) {
                             Long cd = FairyTailCraft.registeredEvents.get(i).cooldown;
-                            if (Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
+                            if (!Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
                                 if (FairyTailCraft.registeredEvents.get(i).call.callPlayerViolencityEvent(event, new Integer(magic[1]))) {
                                     Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
                                     Util.setCooldown(event.getPlayer(), magic[0]);
@@ -229,7 +229,7 @@ public class PlayerEvents implements Listener {
                     if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
                         if (FairyTailCraft.registeredEvents.get(i).call != null) {
                             Long cd = FairyTailCraft.registeredEvents.get(i).cooldown;
-                            if (Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
+                            if (!Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
                                 if (FairyTailCraft.registeredEvents.get(i).call.callPlayerInventoryEvent(event, new Integer(magic[1]))) {
                                     Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
                                     Util.setCooldown(event.getPlayer(), magic[0]);
@@ -264,7 +264,7 @@ public class PlayerEvents implements Listener {
                     if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
                         if (FairyTailCraft.registeredEvents.get(i).call != null) {
                             Long cd = FairyTailCraft.registeredEvents.get(i).cooldown;
-                            if (Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
+                            if (!Util.hasCooldown(event.getPlayer(), magic[0], cd)) {
                                 if (FairyTailCraft.registeredEvents.get(i).call.callPlayerItemHeldEvent(event, new Integer(magic[1]))) {
                                     Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
                                     Util.setCooldown(event.getPlayer(), magic[0]);
