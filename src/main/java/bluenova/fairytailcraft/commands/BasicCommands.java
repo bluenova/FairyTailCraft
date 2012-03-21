@@ -14,7 +14,6 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import sun.tools.jar.CommandLine;
 
 /**
  *
@@ -249,7 +248,11 @@ public class BasicCommands {
                             sent.sendMessage(ChatColor.YELLOW + "Level: " + playerConfig.getLevel());
                             sent.sendMessage(ChatColor.YELLOW + "EXP: " + playerConfig.getExp());
                             sent.sendMessage(ChatColor.YELLOW + "Mana: " + playerConfig.getMana() + "/" + playerConfig.getmaxMana());
-                            sent.sendMessage(ChatColor.YELLOW + "Activespell: " + FairyTailCraft.activeMagic.get(player));
+                            String[] get = FairyTailCraft.activeMagic.get(player);
+                            String val = "none";
+                            if(get != null)
+                                val = get[1];
+                            sent.sendMessage(ChatColor.YELLOW + "Activespell: " + val);
                         }
 
                     } else {

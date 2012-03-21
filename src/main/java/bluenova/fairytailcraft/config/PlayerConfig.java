@@ -166,7 +166,7 @@ public class PlayerConfig {
         }
         if (oldLevel < newLevel) {
             player.sendMessage(ChatColor.GREEN + "Leveled up to Level " + newLevel + "!");
-        } else {
+        } else if(oldLevel > newLevel) {
             player.sendMessage(ChatColor.RED + "Leveled down to Level " + newLevel + "!");
         }
         this.config.set("level", newLevel);
