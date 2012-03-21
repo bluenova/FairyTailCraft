@@ -251,7 +251,7 @@ public class BasicCommands {
                             String[] get = FairyTailCraft.activeMagic.get(player);
                             String val = "none";
                             if(get != null)
-                                val = get[1];
+                                val = get[0] + " Level " + get[1];
                             sent.sendMessage(ChatColor.YELLOW + "Activespell: " + val);
                         }
 
