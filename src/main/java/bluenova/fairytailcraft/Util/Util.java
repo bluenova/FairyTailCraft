@@ -2,6 +2,8 @@ package bluenova.fairytailcraft.Util;
 
 import bluenova.fairytailcraft.FairyTailCraft;
 import bluenova.fairytailcraft.config.PlayerConfig;
+import java.util.Date;
+import java.util.HashMap;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -25,7 +27,7 @@ public class Util {
         return null;
     }
 
-     /**
+    /**
      * Checks if Player Has Permission
      * @param pl Player to Check
      * @param perm Permission to Check
@@ -47,5 +49,26 @@ public class Util {
                 return false;
             }
         }
+    }
+
+    public static boolean hasCooldown(Player pl, String magic, Long cooldown) {
+        HashMap<String, Date> get = FairyTailCraft.playerCDs.get(pl);
+        if (get.containsKey(magic)) {
+            Date dtLastCast = get.get(magic);
+            Date dtNow = new Date();
+            if ((dtNow.getTime() + cooldown) > dtLastCast.getTime()) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+    
+    public static void setCooldown(Player pl, String magic) {
+        HashMap<String, Date> get = FairyTailCraft.playerCDs.get(pl);
+        get.put(magic, new Date());
+        FairyTailCraft.playerCDs.put(pl, get);
     }
 }

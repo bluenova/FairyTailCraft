@@ -25,6 +25,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.nijikokun.bukkit.Permissions.Permissions;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.bukkit.Server;
 import org.bukkit.entity.LivingEntity;
@@ -83,7 +84,11 @@ public class FairyTailCraft extends JavaPlugin {
      */
     public static HashMap<Player, List<LivingEntity>> ownedLivingEntitys = new HashMap<Player, List<LivingEntity>>();
     
-
+    /**
+     * Cooldowns of Players
+     */
+    public static HashMap<Player,HashMap<String,Date>> playerCDs = new HashMap<Player, HashMap<String,Date>>();
+    
     public static Plugin plugin;
     
     @Override

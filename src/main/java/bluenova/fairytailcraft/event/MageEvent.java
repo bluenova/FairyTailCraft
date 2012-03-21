@@ -36,4 +36,8 @@ public class MageEvent {
      * Magic is Hidden from list command?
      */
     public boolean hidden;
+    /**
+     * Cooldown of Magic
+     */
+    public Long cooldown;
 }

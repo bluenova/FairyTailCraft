@@ -29,9 +29,10 @@ public class MagePluginManagerImpl implements MagePluginManager {
      * @param call Object of MagePluginEvent
      * @param type Type of Magic
      * @param hidden Magic is Hidden in List (true/false)
+     * @param cooldown Cooldown of Magic in Milliseconds
      */
     @Override
-    public void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type, boolean hidden) {
+    public void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type, boolean hidden, Long cooldown) {
         MageEvent me = new MageEvent();
         me.name = name;
         me.magicType = magicType;
@@ -40,6 +41,7 @@ public class MagePluginManagerImpl implements MagePluginManager {
         me.call = call;
         me.type = type;
         me.hidden = hidden;
+        me.cooldown = cooldown;
         FairyTailCraft.registeredEvents.add(me);
     }
 

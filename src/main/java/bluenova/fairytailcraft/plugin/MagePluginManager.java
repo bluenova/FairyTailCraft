@@ -21,8 +21,9 @@ public interface MagePluginManager {
      * @param call Object of MagePluginEvent
      * @param type Type of Magic
      * @param hidden Magic is Hidden in List (true/false)
+     * @param cooldown Cooldown of Magic in Miliseconds
      */
-    void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type, boolean hidden);
+    void registerMagic(String name, String magicType, int minLevel, int requiredMana, MagePluginEvent call, MageEventType type, boolean hidden, Long cooldown);
     /**
      * Get Bukkit Server Object
      * @return
