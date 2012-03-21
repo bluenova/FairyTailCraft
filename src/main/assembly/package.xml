@@ -20,7 +20,7 @@
 			<outputDirectory>/FairyTailCraft/plugins</outputDirectory>
 			<includes>
 				<include>FireMagic-0.1.jar</include>
-				<include>LightMagic-0.1.ja</include>
+				<include>LightMagic-0.1.jar</include>
 				<include>BlacksmithMagic-0.1.jar</include>
 			</includes>
 		</fileSet>
