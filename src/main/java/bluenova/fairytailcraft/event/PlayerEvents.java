@@ -19,6 +19,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerInventoryEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -83,6 +84,31 @@ public class PlayerEvents implements Listener {
                     if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
                         if (FairyTailCraft.registeredEvents.get(i).call != null) {
                             if (FairyTailCraft.registeredEvents.get(i).call.callPlayerInteractEvent(event, new Integer(magic[1]))) {
+                                Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
+                            }
+                        }
+                    }
+                }
+                return;
+            }
+        }
+        //}
+    }
+    
+    @EventHandler
+    public void playerInteractEntity(PlayerInteractEntityEvent event) {
+        //if (!event.isBlockInHand() && !event.hasItem()) {
+        String[] magic = FairyTailCraft.activeMagic.get(event.getPlayer());
+        if (magic == null) {
+            return;
+        }
+        String mageType = Util.getPlayerConfig(event.getPlayer()).getMageType();
+        for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
+            if (FairyTailCraft.registeredEvents.get(i).name.equals(magic[0]) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
+                if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.INTERACTENTITY) {
+                    if (Util.getPlayerConfig(event.getPlayer()).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                        if (FairyTailCraft.registeredEvents.get(i).call != null) {
+                            if (FairyTailCraft.registeredEvents.get(i).call.callPlayerInteractEntityEvent(event, new Integer(magic[1]))) {
                                 Util.getPlayerConfig(event.getPlayer()).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
                             }
                         }

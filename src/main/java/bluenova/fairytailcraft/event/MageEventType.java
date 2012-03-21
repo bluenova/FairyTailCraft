@@ -38,5 +38,8 @@ public enum MageEventType {
     /**
      * on Entity get Damage by Entyty event
      */
-    GETDMGBYENTITY
-}
+    GETDMGBYENTITY,
+    /**
+     * on Player interact with Entity
+     */
+   INTERACTENTITY}

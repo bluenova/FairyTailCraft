@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerInventoryEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -89,6 +90,10 @@ public abstract class MagePluginEvent {
      * @return Call Successfully?
      */
     public boolean callEntityDamageByEntityEvent(EntityDamageByEntityEvent event, Integer level) {
+        return false;
+    }
+
+    public boolean callPlayerInteractEntityEvent(PlayerInteractEntityEvent event, Integer integer) {
         return false;
     }
 }
