@@ -42,4 +42,5 @@ public enum MageEventType {
     /**
      * on Player interact with Entity
      */
-   INTERACTENTITY}
+   INTERACTENTITY,
+   PASSIVEGETGAMAGE}

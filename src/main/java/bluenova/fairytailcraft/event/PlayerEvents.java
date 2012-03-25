@@ -17,6 +17,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
@@ -345,15 +346,39 @@ public class PlayerEvents implements Listener {
             }
         }
         if (event.getDamager() instanceof Player) {
-            String magic[] = FairyTailCraft.activeMagic.get((Player) event.getDamager());
-            if (magic == null) {
-                return;
-            }
+
             String mageType = Util.getPlayerConfig((Player) event.getDamager()).getMageType();
             for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
+                String magic[] = FairyTailCraft.activeMagic.get((Player) event.getDamager());
+                if (magic == null) {
+                    break;
+                }
                 if (FairyTailCraft.registeredEvents.get(i).name.equals(magic[0]) && FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType)) {
                     if (FairyTailCraft.registeredEvents.get(i).type == MageEventType.GETDMGBYENTITY) {
                         FairyTailCraft.registeredEvents.get(i).call.callEntityDamageByEntityEvent(event, new Integer(magic[1]));
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void playerGetDmg(EntityDamageEvent event) {
+        Entity target = event.getEntity();
+        if (target instanceof Player) {
+            String mageType = Util.getPlayerConfig((Player) target).getMageType();
+            for (int i = 0; i < FairyTailCraft.registeredEvents.size(); i++) {
+                if (FairyTailCraft.registeredEvents.get(i).magicType.equals(mageType) && FairyTailCraft.registeredEvents.get(i).type == MageEventType.PASSIVEGETGAMAGE) {
+                    if (Util.getPlayerConfig((Player) target).delCalcManaCheck(FairyTailCraft.registeredEvents.get(i).requiredMana)) {
+                        if (FairyTailCraft.registeredEvents.get(i).call != null) {
+                            if (FairyTailCraft.registeredEvents.get(i).call.callEntityDamageEvent(event, 1)) {
+                                Util.getPlayerConfig((Player) target).delCalcMana(FairyTailCraft.registeredEvents.get(i).requiredMana);
+                            }
+                        }
                     }
                 }
             }
@@ -381,6 +406,13 @@ public class PlayerEvents implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (event.getEntity() instanceof Player) {
+            if (!Util.getPlayerConfig((Player) event.getEntity()).getMageType().equals("none")) {
+                Integer exp = Util.getPlayerConfig((Player) event.getEntity()).getExp();
+                Float tmp = exp.floatValue() * 0.9f;
+                exp = tmp.intValue();
+                Util.getPlayerConfig((Player) event.getEntity()).setExp(exp);
+                Util.getPlayerConfig((Player) event.getEntity()).recalculateLevel();
+            }
             String magic[] = FairyTailCraft.activeMagic.get((Player) event.getEntity());
             if (magic == null) {
                 return;
@@ -399,13 +431,6 @@ public class PlayerEvents implements Listener {
                     }
                     return;
                 }
-            }
-            if (!Util.getPlayerConfig((Player) event.getEntity()).getMageType().equals("none")) {
-                Integer exp = Util.getPlayerConfig((Player) event.getEntity()).getExp();
-                Float tmp = exp.floatValue() * 0.9f;
-                exp = tmp.intValue();
-                Util.getPlayerConfig((Player) event.getEntity()).setExp(exp);
-                Util.getPlayerConfig((Player) event.getEntity()).recalculateLevel();
             }
         }
     }
